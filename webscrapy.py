@@ -20,7 +20,7 @@ def returnMeaning():
 
 def playonthesound():
     try:
-        hear = driver.find_element_by_class_name('i-volume-up')
+        hear = driver.find_element_by_xpath('//*[@id="page-content"]/div[2]/div[1]/div[2]/div/div[3]/div/div/div/div[2]/span[2]/span[2]/div')
         hear.click()
     except:
         ...
