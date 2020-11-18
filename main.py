@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-import webscrappy
+import webscrapy
 sg.Input()
 sg.theme('Dark')
 layout = [
@@ -20,14 +20,14 @@ while True:
         if len(values['input']) == 0:
             window['answer'].update('write something')
         else:
-            webscrappy.search(values['input'])
-            window['answer'].update(webscrappy.returnMeaning())
+            webscrapy.search(values['input'])
+            window['answer'].update(webscrapy.returnMeaning())
     
     if event == 'hear':
-        webscrappy.playonthesound()
+        webscrapy.playonthesound()
         
     if event == 'help':
         sg.popup('This is a program that searches for any word you choose and shows the first meaning found for that word according to the dictionary "https://dictionary.cambridge.org/pt/"', title='help')
 
 
-webscrappy.localquit()
+webscrapy.localquit()
