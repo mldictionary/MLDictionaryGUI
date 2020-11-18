@@ -4,10 +4,8 @@ sg.Input()
 sg.theme('Dark')
 layout = [
     [sg.T('Search'), sg.In(default_text='', key='input', size=(30,10)), sg.B(button_text='search', size=(6, 1), key='search'), sg.B(button_text='hear', key='hear')],
-    
     [sg.T(key='answer', size=(50, 5), background_color = 'grey', text_color='Black', pad=(50, 13))],
-    [sg.B('help', key='help')]
-]
+    [sg.B('help', key='help')]]
 
 window = sg.Window('Dictionary', layout)
 
