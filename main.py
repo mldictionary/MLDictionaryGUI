@@ -1,10 +1,10 @@
 import PySimpleGUI as sg
 import webscrapy
-sg.Input()
+sg.Text()
 sg.theme('Dark')
 layout = [
-    [sg.T('Search'), sg.In(default_text='', key='input', size=(30,10)), sg.B(button_text='search', size=(6, 1), key='search'), sg.B(button_text='hear', key='hear')],
-    [sg.T(key='answer', size=(50, 5), background_color = 'grey', text_color='Black', pad=(50, 13))],
+    [sg.T('Search'), sg.In(default_text='', key='input', size=(30,10)), sg.B    (button_text='search', size=(6, 1), key='search'), sg.B(button_text='hear', key='hear')],
+    [sg.Multiline(key='answer', size=(65, 10), text_color='Black', background_color='grey', disabled=True)],
     [sg.B('help', key='help')]]
 
 window = sg.Window('Dictionary', layout)
@@ -27,7 +27,7 @@ while True:
         webscrapy.playonthesound()
         
     if event == 'help':
-        sg.popup('This is a program that searches for any word you choose and shows the first meaning found for that word according to the dictionary "https://dictionary.cambridge.org/pt/"', title='help')
+        sg.popup('This is a program that searches for any word you choose and shows the meaning found for that word according to the dictionary "https://dictionary.cambridge.org/pt/"', title='help')
 
 
 webscrapy.localquit()

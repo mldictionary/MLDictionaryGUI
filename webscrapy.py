@@ -12,9 +12,18 @@ def search(word):
     
 def returnMeaning():
     try:
-        return driver.find_element_by_class_name('db').text
+        text = driver.find_elements_by_class_name('db')
+        full_text = ''
+        for r in range(len(text)):
+            full_text = full_text + f'{r+1}°: ' + text[r].text + '\n\n'
+        if len(full_text)>0:
+            return full_text
+        else:
+            return 'not found'
     except:
-        return 'Not found'
+            return 'not found'
+
+
 
 
 
@@ -29,3 +38,5 @@ def playonthesound():
     
 def localquit():
     driver.quit()
+    
+    
