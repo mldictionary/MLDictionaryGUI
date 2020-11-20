@@ -20,8 +20,7 @@ while True:
         if len(values['input']) == 0:
             window['answer'].update('write something')
         else:
-            webscrapy.search(values['input'])
-            window['answer'].update(webscrapy.returnMeaning())
+            window['answer'].update(webscrapy.returnMeaning(values['input']))
     
     if event == 'hear':
         webscrapy.playonthesound()

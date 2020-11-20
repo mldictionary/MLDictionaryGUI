@@ -10,7 +10,8 @@ def search(word):
 
 
     
-def returnMeaning():
+def returnMeaning(word):
+    search(word)
     try:
         text = driver.find_elements_by_class_name('ddef_d')
         full_text = ''
@@ -25,18 +26,18 @@ def returnMeaning():
 
 
 
-
-
 def playonthesound():
     try:
         hear = driver.find_element_by_xpath('//*[@id="page-content"]/div[2]/div[1]/div[2]/div/div[3]/div/div/div/div[2]/span[2]/span[2]/div')
         hear.click()
     except:
+        hear = driver.find_element_by_class_name('i-volume-up')
+        hear.click()
+    else:
         ...
-    
+        
 
     
 def localquit():
     driver.quit()
-    
-    
+
