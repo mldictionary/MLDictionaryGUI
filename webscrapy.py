@@ -12,7 +12,7 @@ def search(word):
     
 def returnMeaning():
     try:
-        text = driver.find_elements_by_class_name('db')
+        text = driver.find_elements_by_class_name('ddef_d')
         full_text = ''
         for r in range(len(text)):
             full_text = full_text + f'{r+1}°: ' + text[r].text + '\n\n'
