@@ -1,17 +1,40 @@
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
 from time import sleep
+from abc import ABC, abstractmethod
 
-class Dictionary:
+
+class Dictionary(ABC):
     def __init__(self, options=True):
         self.option = Options()
         self.option.headless = options
         self.browser = Chrome('chrome/chromedriver', options=self.option)
         
+    @abstractmethod
+    def search(self, word):
+        ...
+
+    @abstractmethod
+    def returnMeaning(self, word):
+        ...
+
+    @abstractmethod
+    def playonthesound(self):
+        ...
+            
+           
+    def localquit(self):
+        self.browser.quit()
+
+
+class English(Dictionary):
+    def __init__(self, options=True):
+        super().__init__(options)
+        
     def search(self, word):
         self.browser.get(f'https://dictionary.cambridge.org/pt/dicionario/ingles/{word}')
-
-
+        
+    
     def returnMeaning(self, word):
         self.search(word)
         sleep(2)
@@ -27,8 +50,8 @@ class Dictionary:
                 return 'not found'
         except:
                 return 'not found'
-
-
+            
+        
     def playonthesound(self):
         try:
             self.hear = self.browser.find_element_by_xpath('//*[@id="page-content"]/div[2]/div[1]/div[2]/div/div[3]/div/div/div/div[2]/span[2]/span[2]/div')
@@ -41,7 +64,5 @@ class Dictionary:
                 ...
         else:
             ...
-            
-           
-    def localquit(self):
-        self.browser.quit()
+
+

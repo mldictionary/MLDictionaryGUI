@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-from webscrapy import Dictionary
+from webscrapy import English
 
 sg.theme('Dark')
 
@@ -10,7 +10,7 @@ layout = [
 
 window = sg.Window('Dictionary', layout)
 
-english = Dictionary()
+english = English()
 
 while True:
     event, values = window.read()
