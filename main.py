@@ -10,7 +10,7 @@ layout = [
 
 window = sg.Window('Dictionary', layout)
 
-english = Dictionary(False)
+english = Dictionary()
 
 while True:
     event, values = window.read()
