@@ -1,43 +1,47 @@
-from selenium import webdriver
+from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
+from time import sleep
 
-options = Options()
-options.headless = True 
-driver = webdriver.Chrome(executable_path='chrome/chromedriver', options=options)
-    
-def search(word):
-    driver.get(f'https://dictionary.cambridge.org/pt/dicionario/ingles/{word}')
-
-
-    
-def returnMeaning(word):
-    search(word)
-    try:
-        text = driver.find_elements_by_class_name('ddef_d')
-        full_text = ''
-        for r in range(len(text)):
-            full_text = full_text + f'{r+1}°: ' + text[r].text + '\n\n'
-        if len(full_text)>0:
-            return full_text
-        else:
-            return 'not found'
-    except:
-            return 'not found'
-
-
-
-def playonthesound():
-    try:
-        hear = driver.find_element_by_xpath('//*[@id="page-content"]/div[2]/div[1]/div[2]/div/div[3]/div/div/div/div[2]/span[2]/span[2]/div')
-        hear.click()
-    except:
-        hear = driver.find_element_by_class_name('i-volume-up')
-        hear.click()
-    else:
-        ...
+class Dictionary:
+    def __init__(self, options=True):
+        self.option = Options()
+        self.option.headless = options
+        self.browser = Chrome('chrome/chromedriver', options=self.option)
         
+    def search(self, word):
+        self.browser.get(f'https://dictionary.cambridge.org/pt/dicionario/ingles/{word}')
 
-    
-def localquit():
-    driver.quit()
 
+    def returnMeaning(self, word):
+        self.search(word)
+        sleep(2)
+        try:
+            self.text = self.browser.find_elements_by_class_name('ddef_d')
+            self.full_text = ''
+            for r in range(len(self.text)):
+                self.full_text = self.full_text + f'{r+1}°: ' + self.text[r].text + '\n\n'
+                
+            if len(self.full_text)>0:
+                return self.full_text
+            else:
+                return 'not found'
+        except:
+                return 'not found'
+
+
+    def playonthesound(self):
+        try:
+            self.hear = self.browser.find_element_by_xpath('//*[@id="page-content"]/div[2]/div[1]/div[2]/div/div[3]/div/div/div/div[2]/span[2]/span[2]/div')
+            self.hear.click()
+        except:
+            self.hear = self.browser.find_element_by_class_name('i-volume-up')
+            try:
+                self.hear.click()
+            except:
+                ...
+        else:
+            ...
+            
+           
+    def localquit(self):
+        self.browser.quit()
