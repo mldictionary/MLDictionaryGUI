@@ -21,11 +21,7 @@ class Dictionary(ABC):
     @abstractmethod
     def playonthesound(self):
         ...
-            
-           
-    def localquit(self):
-        self.browser.quit()
-        
+                  
     
     def __del__(self):
         self.browser.quit()

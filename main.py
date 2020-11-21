@@ -10,7 +10,7 @@ layout = [
 
 window = sg.Window('Dictionary', layout)
 
-english = English(False)
+english = English()
 language = list()
 while True:
     event, values = window.read()
@@ -28,10 +28,10 @@ while True:
         if language != new_language:
             if new_language == 'Portuguese':
                 del english
-                portuguese = Portuguese(False)
+                portuguese = Portuguese()
             else:
                 del portuguese
-                english = English(False)
+                english = English()
         else:
             ...
             
@@ -60,6 +60,6 @@ while True:
 
 
 try:
-    portuguese.localquit()
+    del portuguese
 except:
-    english.localquit()
+    del english
