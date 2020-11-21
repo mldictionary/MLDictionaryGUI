@@ -11,22 +11,18 @@ class Dictionary(ABC):
         self.browser = Chrome('webdriver/chromedriver', options=self.option)    
  
 
-    
     def __del__(self):
         self.browser.quit()
-
 
 
     @abstractmethod
     def __repr__(self):
         ...
 
-
         
     @abstractmethod
     def search(self, word):
         ...
-
 
 
     @abstractmethod
@@ -34,27 +30,23 @@ class Dictionary(ABC):
         ...
 
 
-
     @abstractmethod
     def playonthesound(self):
         ...
-                  
+           
     
 class English(Dictionary):
     def __init__(self, options=True):
         super().__init__(options)
 
-
-    
+   
     def __repr__(self):
         return 'English'
     
-
-    
+  
     def search(self, word):
         self.browser.get(f'https://dictionary.cambridge.org/pt/dicionario/ingles/{word}')
         
-
 
     def returnMeaning(self, word):
         self.search(word)
@@ -73,7 +65,6 @@ class English(Dictionary):
                 return 'not found'
             
 
-        
     def playonthesound(self):
         try:
             self.hear = self.browser.find_element_by_xpath('//*[@id="page-content"]/div[2]/div[1]/div[2]/div/div[3]/div/div/div/div[2]/span[2]/span[2]/div')
@@ -93,15 +84,12 @@ class Portuguese(Dictionary):
         super().__init__(options)
 
 
-
     def __repr__(self):
         return 'Portuguese'
-
 
     
     def search(self, word):
         self.browser.get(f'https://www.dicio.com.br/{word}/')
-
 
     
     def returnMeaning(self, word):
@@ -129,7 +117,6 @@ class Portuguese(Dictionary):
                 return 'not found'
     
 
-
     def playonthesound(self):
         ...
         
@@ -138,13 +125,11 @@ class Spanish(Dictionary):
     def __init__(self, options=True):
         super().__init__(options)
     
-    
-    
+
     def __repr__(self):
         return 'Spanish'
     
-    
-    
+   
     def search(self, word):
         self.browser.get(f'https://dle.rae.es/{word}?m=form')
         
@@ -169,7 +154,6 @@ class Spanish(Dictionary):
             return 'Not found'
 
 
-
     def playonthesound(self):
         ...
-            
+    
