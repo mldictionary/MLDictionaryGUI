@@ -8,15 +8,18 @@ class Dictionary(ABC):
     def __init__(self, options=True):
         self.option = Options()
         self.option.headless = options
-        self.browser = Chrome('chrome/chromedriver', options=self.option)
+        self.browser = Chrome('webdriver/chromedriver', options=self.option)    
+ 
         
     @abstractmethod
     def search(self, word):
         ...
 
+
     @abstractmethod
     def returnMeaning(self, word):
         ...
+
 
     @abstractmethod
     def playonthesound(self):
