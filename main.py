@@ -10,7 +10,7 @@ layout = [
 
 window = sg.Window('MultiLanguage Dictionary', layout)
 
-dictionary = English(False)
+dictionary = English()
 
 while True:
     event, values = window.read()
@@ -23,14 +23,14 @@ while True:
         if dictionary.__repr__() != new_language:
             if new_language == 'Portuguese':
                 del dictionary
-                dictionary = Portuguese(False)
+                dictionary = Portuguese()
             elif new_language == 'English':
                 del dictionary
-                dictionary = English(False)
+                dictionary = English()
             
             else:
                 del dictionary
-                dictionary = Spanish(False)
+                dictionary = Spanish()
                 
         else:
             ...
