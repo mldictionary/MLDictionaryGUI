@@ -25,6 +25,10 @@ class Dictionary(ABC):
            
     def localquit(self):
         self.browser.quit()
+        
+    
+    def __del__(self):
+        self.browser.quit()
 
 
 class English(Dictionary):
@@ -66,3 +70,39 @@ class English(Dictionary):
             ...
 
 
+class Portuguese(Dictionary):
+    def __init__(self, options=True):
+        super().__init__(options)
+    
+    
+    def search(self, word):
+        self.browser.get(f'https://www.dicio.com.br/{word}/')
+    
+    
+    def returnMeaning(self, word):
+        self.search(word)
+        sleep(2)
+        try:
+            self.text = self.browser.find_element_by_xpath('/html/body/div[2]/div[2]/div[1]/div[1]/div[1]/p[1]')
+            self.text = self.text.find_elements_by_tag_name('span')
+            self.full_text = ''
+            
+            self.howmany = 0
+            for r in range(1, len(self.text)-1):
+                self.check_text = self.text[r].text
+                if len(self.check_text.split())<3:
+                    self.howmany +=1
+                else:
+                    self.full_text = self.full_text + f'{r-self.howmany}°: ' + self.check_text + '\n\n'
+                    
+            if len(self.full_text)>0:
+                return self.full_text
+            else:
+                return 'not found'
+        except:
+                print('msm')
+                return 'not found'
+    
+    
+    def playonthesound(self):
+        ...
