@@ -8,7 +8,7 @@ layout = [
     [sg.Multiline(key='answer', size=(65, 10), text_color='Black', background_color='grey', disabled=True)],
     [sg.B('help', key='help')]]
 
-window = sg.Window('Dictionary', layout)
+window = sg.Window('MultiLanguage Dictionary', layout)
 
 english = English()
 language = list()
