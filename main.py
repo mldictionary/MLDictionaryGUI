@@ -53,10 +53,10 @@ while True:
         if language[0] == 'English':
             english.playonthesound()
         elif language[0] == 'Portuguese':
-            sg.popup('The sound is not working in Portuguese', 'warning')
+            sg.popup('The sound is not working in Portuguese', title='warning')
                  
     if event == 'help':
-        sg.popup('This is a program that searches for any word you choose and shows the meaning found for that word according to the dictionary "https://dictionary.cambridge.org/pt/"', title='help')
+        sg.popup('This is the Multi language program that take your language choice and one word this language and show your definition, able play the word\'s sound\nlanguage options: English and Portuguese', title='help')
 
 
 try:
