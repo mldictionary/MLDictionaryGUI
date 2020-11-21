@@ -10,10 +10,23 @@ class Dictionary(ABC):
         self.option.headless = options
         self.browser = Chrome('webdriver/chromedriver', options=self.option)    
  
+
+    
+    def __del__(self):
+        self.browser.quit()
+
+
+
+    @abstractmethod
+    def __repr__(self):
+        ...
+
+
         
     @abstractmethod
     def search(self, word):
         ...
+
 
 
     @abstractmethod
@@ -21,23 +34,28 @@ class Dictionary(ABC):
         ...
 
 
+
     @abstractmethod
     def playonthesound(self):
         ...
                   
     
-    def __del__(self):
-        self.browser.quit()
-
-
 class English(Dictionary):
     def __init__(self, options=True):
         super().__init__(options)
-        
+
+
+    
+    def __repr__(self):
+        return 'English'
+    
+
+    
     def search(self, word):
         self.browser.get(f'https://dictionary.cambridge.org/pt/dicionario/ingles/{word}')
         
-    
+
+
     def returnMeaning(self, word):
         self.search(word)
         sleep(2)
@@ -54,6 +72,7 @@ class English(Dictionary):
         except:
                 return 'not found'
             
+
         
     def playonthesound(self):
         try:
@@ -72,11 +91,18 @@ class English(Dictionary):
 class Portuguese(Dictionary):
     def __init__(self, options=True):
         super().__init__(options)
-    
+
+
+
+    def __repr__(self):
+        return 'Portuguese'
+
+
     
     def search(self, word):
         self.browser.get(f'https://www.dicio.com.br/{word}/')
-    
+
+
     
     def returnMeaning(self, word):
         self.search(word)
@@ -102,6 +128,48 @@ class Portuguese(Dictionary):
                 print('msm')
                 return 'not found'
     
-    
+
+
     def playonthesound(self):
         ...
+        
+
+class Spanish(Dictionary):
+    def __init__(self, options=True):
+        super().__init__(options)
+    
+    
+    
+    def __repr__(self):
+        return 'Spanish'
+    
+    
+    
+    def search(self, word):
+        self.browser.get(f'https://dle.rae.es/{word}?m=form')
+        
+    
+    def returnMeaning(self, word):
+        self.search(word)
+        sleep(2)
+        try:
+            self.text = self.browser.find_element_by_xpath('//*[@id="diccionario"]/div[2]/article')
+            self.text = self.text.find_elements_by_tag_name('p')
+            self.full_text = ''
+            for r in range(len(self.text)):
+                if self.text[r].get_attribute('class') == 'k5':
+                    break
+                self.full_text = self.full_text + self.text[r].text + '\n\n'
+                
+            if len(self.full_text)>0:
+                return self.full_text
+            else:
+                return 'Not found'
+        except:
+            return 'Not found'
+
+
+
+    def playonthesound(self):
+        ...
+            
