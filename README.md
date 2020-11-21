@@ -1,2 +1,3 @@
 # English's Dictionary
-##### This is a program that searches for any word you choose, play the word's pronunciation and shows the meaning found for that word according to the dictionary "https://dictionary.cambridge.org/pt/"
+##### This is the Multi language program that take your language choice and one word this language and show your definition, able play the word's sound 
+##### language options: English and Portuguese
