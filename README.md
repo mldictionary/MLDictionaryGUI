@@ -6,8 +6,7 @@
 </h2>
 
 # ⚈ About
-This is the Multi language program that take your language choice and one word this language and show your definition, able play the word's sound 
-language options: English, Portuguese and Spanish
+This is the Multi language program that take your language choice and one word this language and show your definition. Language options: English, Portuguese and Spanish
 
 ## Some Screenshots
 
