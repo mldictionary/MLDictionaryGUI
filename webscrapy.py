@@ -41,8 +41,13 @@ class English(Dictionary):
         try:
             self.text = self.response.xpath('//span[@class="def"]/text()').getall()
             self.full_text = ''
+            self.howmany = 0
             for r in range(len(self.text)):
-                self.full_text = self.full_text + f'{r+1}°: ' + self.text[r] + '\n\n'
+                if len(self.text[r].split())<3:
+                    self.howmany+=1
+                    ...
+                else:
+                    self.full_text = self.full_text + f'{r+1-(self.howmany)}°: ' + self.text[r] + '\n\n'
                 
             if len(self.full_text)>0:
                 return self.full_text
