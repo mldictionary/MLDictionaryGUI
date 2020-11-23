@@ -71,6 +71,11 @@ class Portuguese(Dictionary):
 
     
     def returnMeaning(self, word):
+        import unicodedata
+        import re
+        word = unicodedata.normalize('NFD', word)
+        word = re.sub('[\u0300-\u036f]', '', word)
+        
         self.response = Selector(text=self.search(word))
         try:
             self.text = self.response.xpath('//p[@itemprop="description"]/span//text()').getall()
@@ -106,6 +111,11 @@ class Spanish(Dictionary):
         
     
     def returnMeaning(self, word):
+        import unicodedata
+        import re
+        word = unicodedata.normalize('NFD', word)
+        word = re.sub('[\u0300-\u036f]', '', word)
+        
         self.response = Selector(text=self.search(word))
         try:
             self.text = self.response.xpath('//ol[@class="entry"]//li/text()').getall()
