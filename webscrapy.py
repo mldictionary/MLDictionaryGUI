@@ -1,18 +1,11 @@
-from selenium.webdriver import Chrome
-from selenium.webdriver.chrome.options import Options
-from time import sleep
+import requests
+from parsel import Selector
 from abc import ABC, abstractmethod
 
 
 class Dictionary(ABC):
-    def __init__(self, options=True):
-        self.option = Options()
-        self.option.headless = options
-        self.browser = Chrome('webdriver/chromedriver', options=self.option)    
- 
-
-    def __del__(self):
-        self.browser.quit()
+    def __init__(self):
+        self.response = None
 
 
     @abstractmethod
@@ -30,14 +23,9 @@ class Dictionary(ABC):
         ...
 
 
-    @abstractmethod
-    def playonthesound(self):
-        ...
-           
-    
 class English(Dictionary):
-    def __init__(self, options=True):
-        super().__init__(options)
+    def __init__(self):
+        super().__init__()
 
    
     def __repr__(self):
@@ -45,17 +33,16 @@ class English(Dictionary):
     
   
     def search(self, word):
-        self.browser.get(f'https://dictionary.cambridge.org/pt/dicionario/ingles/{word}')
+        return requests.get(f'https://www.oxfordlearnersdictionaries.com/us/definition/english/{word}?q={word}', headers={'User-Agent': 'Mozilla/5.0'}).text
         
 
     def returnMeaning(self, word):
-        self.search(word)
-        sleep(2)
+        self.response = Selector(text=self.search(word))
         try:
-            self.text = self.browser.find_elements_by_class_name('ddef_d')
+            self.text = self.response.xpath('//span[@class="def"]/text()').getall()
             self.full_text = ''
             for r in range(len(self.text)):
-                self.full_text = self.full_text + f'{r+1}°: ' + self.text[r].text + '\n\n'
+                self.full_text = self.full_text + f'{r+1}°: ' + self.text[r] + '\n\n'
                 
             if len(self.full_text)>0:
                 return self.full_text
@@ -63,25 +50,11 @@ class English(Dictionary):
                 return 'not found'
         except:
                 return 'not found'
-            
-
-    def playonthesound(self):
-        try:
-            self.hear = self.browser.find_element_by_xpath('//*[@id="page-content"]/div[2]/div[1]/div[2]/div/div[3]/div/div/div/div[2]/span[2]/span[2]/div')
-            self.hear.click()
-        except:
-            self.hear = self.browser.find_element_by_class_name('i-volume-up')
-            try:
-                self.hear.click()
-            except:
-                ...
-        else:
-            ...
 
 
 class Portuguese(Dictionary):
-    def __init__(self, options=True):
-        super().__init__(options)
+    def __init__(self):
+        super().__init__()
 
 
     def __repr__(self):
@@ -89,41 +62,34 @@ class Portuguese(Dictionary):
 
     
     def search(self, word):
-        self.browser.get(f'https://www.dicio.com.br/{word}/')
+        return requests.get(f'https://www.dicio.com.br/{word}/', headers={'User-Agent': 'Mozilla/5.0'}).text
 
     
     def returnMeaning(self, word):
-        self.search(word)
-        sleep(2)
+        self.response = Selector(text=self.search(word))
         try:
-            self.text = self.browser.find_element_by_xpath('/html/body/div[2]/div[2]/div[1]/div[1]/div[1]/p[1]')
-            self.text = self.text.find_elements_by_tag_name('span')
+            self.text = self.response.xpath('//p[@itemprop="description"]/span//text()').getall()
             self.full_text = ''
-            
             self.howmany = 0
             for r in range(1, len(self.text)-1):
-                self.check_text = self.text[r].text
-                if len(self.check_text.split())<3:
+                if len(self.text[r].split())<3:
                     self.howmany +=1
+                elif 'Etimologia' in self.text[r]:
+                    break
                 else:
-                    self.full_text = self.full_text + f'{r-self.howmany}°: ' + self.check_text + '\n\n'
+                    self.full_text = self.full_text + f'{r-self.howmany}°: ' + self.text[r] + '\n\n'
                     
             if len(self.full_text)>0:
                 return self.full_text
             else:
                 return 'not found'
         except:
-                print('msm')
                 return 'not found'
-    
-
-    def playonthesound(self):
-        ...
         
 
 class Spanish(Dictionary):
-    def __init__(self, options=True):
-        super().__init__(options)
+    def __init__(self):
+        super().__init__()
     
 
     def __repr__(self):
@@ -131,21 +97,24 @@ class Spanish(Dictionary):
     
    
     def search(self, word):
-        self.browser.get(f'https://dle.rae.es/{word}?m=form')
+        return requests.get(f'https://www.wordreference.com/definicion/{word}', headers={'User-Agent': 'Mozilla/5.0'}).text
         
     
     def returnMeaning(self, word):
-        self.search(word)
-        sleep(2)
+        self.response = Selector(text=self.search(word))
         try:
-            self.text = self.browser.find_element_by_xpath('//*[@id="diccionario"]/div[2]/article')
-            self.text = self.text.find_elements_by_tag_name('p')
+            self.text = self.response.xpath('//ol[@class="entry"]//li/text()').getall()
             self.full_text = ''
+            self.howmany = 0
             for r in range(len(self.text)):
-                if self.text[r].get_attribute('class') == 'k5':
-                    break
-                self.full_text = self.full_text + self.text[r].text + '\n\n'
-                
+                if self.text[r] == ' ':
+                    self.howmany +=1
+                    ...
+                elif '♦' in self.text[r]:
+                    self.howmany +=1
+                    ...
+                else:
+                    self.full_text = self.full_text + f'{r+1-(self.howmany)}°: ' + self.text[r] + '\n'
             if len(self.full_text)>0:
                 return self.full_text
             else:
@@ -153,7 +122,3 @@ class Spanish(Dictionary):
         except:
             return 'Not found'
 
-
-    def playonthesound(self):
-        ...
-    
