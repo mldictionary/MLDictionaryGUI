@@ -28,7 +28,7 @@ The following tools were used in the construction of the project:
 
 - [Python](https://www.python.org/)
 - [PySimpleGUI](https://pysimplegui.readthedocs.io/en/latest/cookbook/)
-- [Selenium](https://selenium-python.readthedocs.io/)
+- [Parsel](https://pypi.org/project/parsel/)
 
 <h1>⚈ Bugs and Features</h1>
 <p>
