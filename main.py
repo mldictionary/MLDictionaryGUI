@@ -43,7 +43,7 @@ while True:
             window['answer'].update(dictionary.returnMeaning(values['input']))
 
     if event == 'help':
-        sg.popup('This is the Multi language program that take your language choice and one word this language and show your definition, able play the word\'s sound\nlanguage options: English, Portuguese and Spanish', title='help')
+        sg.popup('This is the Multi language program that take your language choice and one word this language and show your definition\nlanguage options: English, Portuguese and Spanish', title='help')
 
 
 del dictionary
