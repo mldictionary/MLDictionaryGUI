@@ -45,5 +45,5 @@ while True:
     if event == 'help':
         sg.popup('This is the Multi language program that take your language choice and one word this language and show your definition\nlanguage options: English, Portuguese and Spanish', title='help')
 
-
+window.close()
 del dictionary
