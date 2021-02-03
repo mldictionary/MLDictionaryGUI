@@ -44,7 +44,7 @@ class English(Dictionary):
             full_text = ''
             howmany = 0
             for r in range (len(text)):
-                if text[r] == ': ':
+                if text[r] == ': ' or r==len(text)-1:
                     if helper[howmany] in concatenater:
                         helper.pop()
                         howmany-=1
