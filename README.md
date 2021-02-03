@@ -1,12 +1,13 @@
 <h1 align="center">MultiLanguage Dictionary</h1>
 <h2 align="center" >
-    A simple GUI to search word's definition <br><br>
+Search for word definitions in a GTK application <br><br>
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/PabloEmidio/MultiLanguage-Dictionay?style=social">
     <img alt="GitHub followers" src="https://img.shields.io/github/followers/PabloEmidio?label=Follow%20me&style=social">
 </h2>
 
 # ⚈ About
-This is the Multi language program that take your language choice and one word this language and show your definition. Language options: English, Portuguese and Spanish
+This is the Multi language program that take your language choice and one word this language and show your definition. Language options:
+English, Portuguese and Spanish
 
 ## Some Screenshots
 <h1 align="center">
