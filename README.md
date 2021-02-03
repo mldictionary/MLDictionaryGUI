@@ -6,7 +6,7 @@ Search for word definitions in a GTK application <br><br>
 </h2>
 
 # ⚈ About
-This is a program that search for word definitions on multilanguage. Langauge options: English, Portuguese and Spanish
+This is a program that search for word definitions on severals language. language options: English, Portuguese and Spanish
 
 ## Some Screenshots
 <h1 align="center">
