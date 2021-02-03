@@ -1,8 +1,6 @@
 import requests
 from parsel import Selector
 from abc import ABC, abstractmethod
-import time
-
 
 class Dictionary(ABC):
     def __init__(self):
