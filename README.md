@@ -9,17 +9,15 @@
 This is the Multi language program that take your language choice and one word this language and show your definition. Language options: English, Portuguese and Spanish
 
 ## Some Screenshots
-
 <h1 align="center">
-  <h3>English search</h3>
+  <h3 align="center">English search</h3>
   <img align="center" src=".images/search_english.png"><br>
-  <h3>Portuguese search</h3>
-  <img src=".images/search_portuguese.png" align="center" ><br>
-  <h3>Spanish search</h3>
-  <img src=".images/search_spanish.png" align="center" ><br>
-  <h3>Help</h3>
-  <img src=".images/help_popup.png" align="center" ><br>
+  <h3 align="center">Portuguese search</h3>
+  <img align="center" src=".images/search_portuguese.png"><br>
+  <h3 align="center">Spanish search</h3>
+  <img align="center" src=".images/search_spanish.png" ><br>
 </h1>
+
 
 
 # ⚈ Tech Stack
@@ -27,7 +25,7 @@ This is the Multi language program that take your language choice and one word t
 The following tools were used in the construction of the project:
 
 - [Python](https://www.python.org/)
-- [PySimpleGUI](https://pysimplegui.readthedocs.io/en/latest/cookbook/)
+- [Gtk](https://www.gtk.org/)
 - [Parsel](https://pypi.org/project/parsel/)
 
 <h1>⚈ Bugs and Features</h1>
