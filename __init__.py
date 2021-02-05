@@ -6,12 +6,12 @@ import webscrapy
 
 class Window(Gtk.Window):    
     def __init__(self):
-        Gtk.Window.__init__(self, title='MultiLanguage Dictionay')
+        Gtk.Window.__init__(self, title='MultiLanguage Dictionary')
         self.set_border_width(10)
         self.set_size_request(800, 600)
         hb = Gtk.HeaderBar()
         hb.set_show_close_button(True)
-        hb.props.title = 'MultiLanguage Dictionay'
+        hb.props.title = 'MultiLanguage Dictionary'
         self.set_titlebar(hb)
         
         self.language = webscrapy.English()
