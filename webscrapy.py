@@ -37,24 +37,20 @@ class English(Dictionary):
     def returnMeaning(self, word):
         try:
             response = Selector(text=self.search(word))
-            text = response.xpath('//div[has-class("def", "ddef_d", "db")]//text()').getall()
-            concatenater, helper = [], ['']
+            text = response.xpath('//div[has-class("def", "ddef_d", "db")]').getall()
             full_text = ''
             howmany = 0
-            for r in range (len(text)):
-                if text[r] == ': ' or r==len(text)-1:
-                    if helper[howmany] in concatenater:
-                        helper.pop()
-                        howmany-=1
-                    else:
-                        concatenater.append(helper[howmany])
+            for r in range(len(text)):
+                text[r] = text[r].replace('<div class="def ddef_d db">', '').replace('</div>', '').replace('<br>', '\n\t\t').replace('</span>', '').replace('<span>', '').replace('<i>', '').replace('</i>', '').replace('</a>', '').replace('\n        \n         ', '')
+                while '<' in text[r]:
+                    where = text[r].find('<')
+                    helper = text[r][:where]
+                    where = text[r].find('>')
+                    text[r] = helper + ' ' + text[r][where+1:]
+                if text[r] in full_text:
                     howmany+=1
-                    helper.append('')
                 else:
-                    helper[howmany] = helper[howmany] + text[r]
-            for r in range(len(concatenater)):
-                full_text = full_text + f'{r+1}°: ' + concatenater[r] + '\n\n'
-                
+                    full_text = full_text + f'{r+1-howmany}°: ' + text[r] + '\n\n'
             if len(full_text)>0:
                 return True, full_text
             else:
