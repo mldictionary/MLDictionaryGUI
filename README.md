@@ -1,3 +1,6 @@
+<h1 align="center">
+  <img alt="icon" src="./media/icon.png">
+</h1>
 <h1 align="center">MultiLanguage Dictionary</h1>
 <h2 align="center" >
 Search for word definitions in a GTK application <br><br>
@@ -26,6 +29,7 @@ The following tools were used in the construction of the project:
 
 - [Python](https://www.python.org/)
 - [Gtk](https://www.gtk.org/)
+- [Glade](https://glade.gnome.org/)
 - [Parsel](https://pypi.org/project/parsel/)
 
 <h1>⚈ Bugs and Features</h1>
