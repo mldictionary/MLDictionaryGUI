@@ -38,6 +38,7 @@
                 <property name="can-focus">True</property>
                 <property name="primary-icon-name">system-search-symbolic</property>
                 <property name="placeholder-text" translatable="yes">type here</property>
+                <property name="input-purpose">alpha</property>
                 <signal name="activate" handler="on_button_search_clicked" swapped="no"/>
               </object>
               <packing>
