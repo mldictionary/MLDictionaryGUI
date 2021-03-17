@@ -38,21 +38,24 @@ class English(Dictionary):
         try:
             response = Selector(text=self.search(word))
             text = response.xpath('//div[has-class("def", "ddef_d", "db")]').getall()
-            full_text = ''
-            howmany = 0
-            for r in range(len(text)):
-                text[r] = text[r].replace('<div class="def ddef_d db">', '').replace('</div>', '').replace('<br>', '\n\t\t').replace('</span>', '').replace('<span>', '').replace('<i>', '').replace('</i>', '').replace('</a>', '').replace('\n        \n         ', '')
-                while '<' in text[r]:
-                    where = text[r].find('<')
-                    helper = text[r][:where]
-                    where = text[r].find('>')
-                    text[r] = helper + ' ' + text[r][where+1:]
-                if text[r] in full_text:
-                    howmany+=1
+            if len(text)>0:
+                full_text = ''
+                howmany = 0
+                for r in range(len(text)):
+                    text[r] = text[r].replace('<div class="def ddef_d db">', '').replace('</div>', '').replace('<br>', '\n\t\t').replace('</span>', '').replace('<span>', '').replace('<i>', '').replace('</i>', '').replace('</a>', '').replace('\n        \n         ', '')
+                    while '<' in text[r]:
+                        where = text[r].find('<')
+                        helper = text[r][:where]
+                        where = text[r].find('>')
+                        text[r] = helper + ' ' + text[r][where+1:]
+                    if text[r] in full_text:
+                        howmany+=1
+                    else:
+                        full_text = full_text + f'{r+1-howmany}°: ' + text[r] + '\n\n'
+                if len(full_text)>0:
+                    return True, full_text.replace(':', '.')
                 else:
-                    full_text = full_text + f'{r+1-howmany}°: ' + text[r] + '\n\n'
-            if len(full_text)>0:
-                return True, full_text
+                    return False, 'not found'
             else:
                 return False, 'not found'
         except Exception as error:
@@ -82,23 +85,26 @@ class Portuguese(Dictionary):
         try:
             response = Selector(text=self.search(word))
             text = response.xpath('//p[@itemprop="description"]/span').getall()
-            full_text, helper = '', ''
-            howmany = 0
-            for r in range (1, len(text) -1):
-                text[r] = text[r].replace('<span>', '').replace('</span>', '').replace('<span class="tag">', '').replace('<i>', '').replace('</i>', '').replace('<a href="', '').replace('</a>', '')
-                if 'class="etim"' in text[r]:
-                    break
-                elif 'class="cl"' in text[r]:
-                    howmany +=1
+            if len(text)>0:
+                full_text, helper = '', ''
+                howmany = 0
+                for r in range (1, len(text) -1):
+                    text[r] = text[r].replace('<span>', '').replace('</span>', '').replace('<span class="tag">', '').replace('<i>', '').replace('</i>', '').replace('<a href="', '').replace('</a>', '')
+                    if 'class="etim"' in text[r]:
+                        break
+                    elif 'class="cl"' in text[r]:
+                        howmany +=1
+                    else:
+                        while '>' in text[r]:
+                            where = text[r].find('>')
+                            helper = text[r][where+1:]
+                            where = text[r].find('/')
+                            text[r] = text[r][:where] + ' ' + helper
+                        full_text = full_text + f'{r-howmany}°: ' + text[r] + '\n\n'
+                if len(full_text)>0:
+                    return True, full_text
                 else:
-                    while '>' in text[r]:
-                        where = text[r].find('>')
-                        helper = text[r][where+1:]
-                        where = text[r].find('/')
-                        text[r] = text[r][:where] + ' ' + helper
-                    full_text = full_text + f'{r-howmany}°: ' + text[r] + '\n\n'
-            if len(full_text)>0:
-                return True, full_text
+                    return False, 'not found'
             else:
                 return False, 'not found'
         except Exception as error:
@@ -127,19 +133,22 @@ class Spanish(Dictionary):
         try:
             response = Selector(text=self.search(word))
             text = response.xpath('//ol[@class="entry"]//li').getall()
-            full_text, helper = '', ''
-            for r in range(len(text)):
-                text[r] = text[r].replace('<li>', '').replace('</li>', '').replace('<br>', '\n\t\t').replace('</span>', '').replace('<span>', '').replace('<i>', '').replace('</i>', '')
-                while '<span' in text[r]:
-                    where = text[r].find('<')
-                    helper = text[r][:where]
-                    where = text[r].find('>')
-                    text[r] = helper + ' ' + text[r][where+1:]
-                full_text = full_text + f'{r+1}°: ' + text[r] + '\n\n'
-            if len(full_text)>0:
-                return True, full_text
+            if len(text)>0:
+                full_text, helper = '', ''
+                for r in range(len(text)):
+                    text[r] = text[r].replace('<li>', '').replace('</li>', '').replace('<br>', '\n\t\t').replace('</span>', '').replace('<span>', '').replace('<i>', '').replace('</i>', '')
+                    while '<span' in text[r]:
+                        where = text[r].find('<')
+                        helper = text[r][:where]
+                        where = text[r].find('>')
+                        text[r] = helper + ' ' + text[r][where+1:]
+                    full_text = full_text + f'{r+1}°: ' + text[r] + '\n\n'
+                if len(full_text)>0:
+                    return True, full_text
+                else:
+                    return False, 'Not found'
             else:
-                return False, 'Not found'
+                return False, 'not found'
         except Exception as error:
             print(error)
             return False, error
