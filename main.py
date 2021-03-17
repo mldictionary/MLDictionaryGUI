@@ -16,13 +16,15 @@ class Handler:
         self.button_search = builder.get_object('search')
         self.combo = builder.get_object('combo')
         self.label = builder.get_object('label')
-    
+
     def onDestroy(self, *args):
         Gtk.main_quit()
-        
-        
+
+
     def on_button_search_clicked(self, widget):
+        import re
         word = self.entry.get_text().lower().strip()
+        word = re.sub('[^\w]+', '', word)
         if len(word)==0:
             ...
         else:
@@ -39,8 +41,8 @@ class Handler:
                 self.label.set_justify(Gtk.Justification.CENTER)
                 self.label.set_selectable(False)
                 self.label.set_text(f'The word "{word}" was not found' + '\nPlease, check the word\'s spelling and/or your connection')
- 
- 
+
+
     def on_comboboxtext_changed(self, widget):
         if self.combo.get_active() == 0:
             self.language = webscrapy.English()
@@ -48,8 +50,8 @@ class Handler:
             self.language = webscrapy.Portuguese()
         elif self.combo.get_active() == 2:
             self.language = webscrapy.Spanish()
-            
-            
+
+
 builder.connect_signals(Handler())
 window = builder.get_object('main_window')
 window.show_all()
