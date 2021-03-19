@@ -24,7 +24,7 @@ class Handler:
     def on_button_search_clicked(self, widget):
         import re
         word = self.entry.get_text().lower().strip()
-        word = re.sub('[^\w]+', '', word)
+        word = re.sub('[^\w ]+', '', word)
         if len(word)==0:
             ...
         else:
