@@ -21,7 +21,7 @@
       <object class="GtkBox" id="vbox">
         <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">30</property>
+        <property name="spacing">15</property>
         <child>
           <object class="GtkBox" id="hbox">
             <property name="width-request">800</property>
@@ -87,6 +87,112 @@
           </packing>
         </child>
         <child>
+          <!-- n-columns=1 n-rows=2 -->
+          <object class="GtkGrid" id="info">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="row-homogeneous">True</property>
+            <property name="column-homogeneous">True</property>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="spacing">7</property>
+                <property name="baseline-position">bottom</property>
+                <child>
+                  <object class="GtkLabel" id="current_language">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">English:</property>
+                    <attributes>
+                      <attribute name="weight" value="ultrabold"/>
+                      <attribute name="size" value="17408"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="current_word">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <attributes>
+                      <attribute name="style" value="oblique"/>
+                      <attribute name="weight" value="medium"/>
+                      <attribute name="variant" value="normal"/>
+                      <attribute name="scale" value="1"/>
+                      <attribute name="size" value="17408"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="spacing">7</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">source:</property>
+                    <attributes>
+                      <attribute name="style" value="italic"/>
+                      <attribute name="weight" value="bold"/>
+                      <attribute name="size" value="12288"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="current_source">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">https://dictionary.cambridge.org/us/</property>
+                    <property name="selectable">True</property>
+                    <attributes>
+                      <attribute name="style" value="italic"/>
+                      <attribute name="weight" value="bold"/>
+                      <attribute name="size" value="12288"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkBox" id="answerbox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -138,7 +244,56 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="pronunciation">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="spacing">15</property>
+            <child>
+              <object class="GtkButton" id="play_soun">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="always-show-image">True</property>
+                <signal name="clicked" handler="on_button_play_sound_clicked" swapped="no"/>
+                <child>
+                  <object class="GtkImage" id="play_sound">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="pixbuf">../media/sound-icon-20.png</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="pronounce_spell">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">spell pronounce</property>
+                <attributes>
+                  <attribute name="style" value="oblique"/>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
           </packing>
         </child>
       </object>
