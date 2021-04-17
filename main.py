@@ -27,6 +27,7 @@ class Handler:
         
         self.play_sound = builder.get_object('play_sound')
         self.pronounce_spell = builder.get_object('pronounce_spell')
+        self.is_to_play = False
 
     def onDestroy(self, *args):
         Gtk.main_quit()
@@ -60,10 +61,12 @@ class Handler:
                 self.label.set_justify(Gtk.Justification.CENTER)
                 self.label.set_selectable(False)
                 self.label.set_text(f'The word "{word}" was not found' + '\nPlease, check the word\'s spelling and/or your connection')
+                self.pronounce_spell.set_text('')
+            self.is_to_play = result[0]
 
     def on_button_play_sound_clicked(self, widget):
         word = self.current_word.get_text().lower()
-        if len(word.strip()) > 0:
+        if len(word.strip()) > 0 and self.is_to_play:
             self.pronounce.play_audio(word, self.language.__repr__())
         else:
             ...
@@ -85,6 +88,7 @@ class Handler:
         self.current_word.set_text('')
         self.current_source.set_text(self.language_source)
         self.label.set_text('')
+        self.pronounce_spell.set_text('')
 
 
 builder.connect_signals(Handler())
