@@ -34,7 +34,7 @@ sudo apt install mpg123
 sudo dnf install mpg123
 ```
 
-### Manjaro and/or arch base
+### Manjaro and/or Arch base
 ```
 sudo pamac install mpg123 
 ```
