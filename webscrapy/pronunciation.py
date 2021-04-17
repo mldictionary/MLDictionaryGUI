@@ -19,7 +19,7 @@ class Pronunciation:
         if len(pronounce_spell.strip()) > 0:
             return pronounce_spell
         else:
-            return 'There is not pronounce spell available'
+            return 'There is not pronounce spell available, put accent when is necessary'
         
     
     def play_audio(self, word, language):
@@ -32,7 +32,7 @@ class Pronunciation:
         else:
             return
         try:
-            os.system(f'wget https://ssl.gstatic.com/dictionary/static/pronunciation/2021-03-01/audio/{word[:2]}/{play_word}; playout {play_word}; rm {play_word}')
+            os.system(f'wget https://ssl.gstatic.com/dictionary/static/pronunciation/2021-03-01/audio/{word[:2]}/{play_word}; mpg123 {play_word}; rm {play_word}')
         except:
             ...
         
