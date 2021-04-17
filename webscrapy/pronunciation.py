@@ -13,10 +13,8 @@ class Pronunciation:
     
     
     def return_pronounce_spell(self, word, language):
-        print(word, language)
         element = Selector(text=self.search(word, language))
         html_element = element.css('span.seLqNc[jsname="dDjxrf"]::text').getall()
-        print(html_element)
         pronounce_spell = ' - '.join(html_element)
         if len(pronounce_spell.strip()) > 0:
             return pronounce_spell

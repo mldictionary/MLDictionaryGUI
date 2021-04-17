@@ -41,9 +41,9 @@ class Handler:
         else:
             self.current_word.set_text(word.upper())
             if self.language.__repr__() == 'English':
-                self.current_source.set_text(self.language_source + f'dictionary/english/{word}')
+                self.current_source.set_markup(f'<a href="{self.language_source + f"dictionary/english/" + word}"> {self.language_source + f"dictionary/english/" + word}</a>')
             else:
-                self.current_source.set_text(self.language_source + word)
+                self.current_source.set_markup(f'<a href="{self.language_source + word}">{self.language_source + word}</a>')
             result = self.language.returnMeaning(word)
             if result[0]:
                 self.label.set_yalign(0)
@@ -53,7 +53,6 @@ class Handler:
                 self.label.set_text(result[1])
                 
                 spell = self.pronounce.return_pronounce_spell(word, self.current_language.get_text())
-                # print(len(spell))
                 self.pronounce_spell.set_text(spell)
             else:
                 self.label.set_yalign(0.5)
@@ -64,7 +63,10 @@ class Handler:
 
     def on_button_play_sound_clicked(self, widget):
         word = self.current_word.get_text().lower()
-        self.pronounce.play_audio(word, self.language.__repr__())
+        if len(word.strip()) > 0:
+            self.pronounce.play_audio(word, self.language.__repr__())
+        else:
+            ...
         
         
     def on_comboboxtext_changed(self, widget):
