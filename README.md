@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="icon" src="./media/icon.png">
+  <img alt="icon" src="./media/window_icon_120-118.png">
 </h1>
 <h1 align="center">MultiLanguage Dictionary</h1>
 <h2 align="center" >
@@ -8,8 +8,38 @@ Search for word definitions in a GTK application <br><br>
     <img alt="GitHub followers" src="https://img.shields.io/github/followers/PabloEmidio?label=Follow%20me&style=social">
 </h2>
 
+
 # ⚈ About
-This is a program that search for word definitions on severals language. language options: English, Portuguese and Spanish
+This is a program that searches for word definitions on several languages, showing your definition, pronounce spell and playing an audio pronounce when available. 
+
+language options: English, Portuguese and Spanish
+
+# Requirements
+
+Some python libs and software are required to run this program
+
+### Python libs
+
+```
+pip3 install parsel requests_html 
+```
+
+### Ubuntu and/or Debian base
+```
+sudo apt install mpg123
+```
+
+### Fedora and/or Red Hat base
+```
+sudo dnf install mpg123
+```
+
+### Manjaro and/or arch base
+```
+sudo pamac install mpg123 
+```
+
+
 
 ## Some Screenshots
 <h1 align="center">
