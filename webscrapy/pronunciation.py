@@ -23,6 +23,7 @@ class Pronunciation:
         
     
     def play_audio(self, word, language):
+        word = word.replace(' ', '\ ')
         if language == 'English':
             play_word = word + '_en_us_1.mp3'
         elif language == 'Portuguese':

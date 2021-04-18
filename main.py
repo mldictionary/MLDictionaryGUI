@@ -68,10 +68,9 @@ class Handler:
         word = self.current_word.get_text().lower()
         if len(word.strip()) > 0 and self.is_to_play:
             self.pronounce.play_audio(word, self.language.__repr__())
-        else:
-            ...
         
-        
+
+   
     def on_comboboxtext_changed(self, widget):
         if self.combo.get_active() == 0:
             self.language = webscrapy.English()
