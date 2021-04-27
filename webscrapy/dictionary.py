@@ -1,4 +1,4 @@
-import requests
+import requests, re
 from parsel import Selector
 from abc import ABC, abstractmethod
 
@@ -39,21 +39,16 @@ class English(Dictionary):
             response = Selector(text=self.search(word))
             text = response.xpath('//div[has-class("def", "ddef_d", "db")]').getall()
             if len(text)>0:
-                full_text = ''
-                howmany = 0
-                for r in range(len(text)):
-                    text[r] = text[r].replace('<div class="def ddef_d db">', '').replace('</div>', '').replace('<br>', '\n\t\t').replace('</span>', '').replace('<span>', '').replace('<i>', '').replace('</i>', '').replace('</a>', '').replace('\n        \n         ', '')
-                    while '<' in text[r]:
-                        where = text[r].find('<')
-                        helper = text[r][:where]
-                        where = text[r].find('>')
-                        text[r] = helper + ' ' + text[r][where+1:]
-                    if text[r] in full_text:
-                        howmany+=1
+                text = list(map(lambda arr: re.sub('<[^>]*>', '', arr), text))
+                formatted_text = ''
+                how_many = 0
+                for i in range(len(text)):
+                    if text[i] in formatted_text:
+                        how_many+=1
                     else:
-                        full_text = full_text + f'{r+1-howmany}°: ' + text[r] + '\n\n'
-                if len(full_text)>0:
-                    return True, full_text.replace(':', '.')
+                        formatted_text += f'{i+1-how_many}º: ' + text[i] + '\n\n'
+                if len(formatted_text)>0:
+                    return True, formatted_text.replace(':', '. ').replace('\n        \n         ', ':  ')
                 else:
                     return False, 'not found'
             else:
@@ -78,7 +73,6 @@ class Portuguese(Dictionary):
     
     def returnMeaning(self, word):
         import unicodedata
-        import re
         word = unicodedata.normalize('NFD', word)
         word = re.sub('[\u0300-\u036f]', '', word)
        
@@ -86,23 +80,18 @@ class Portuguese(Dictionary):
             response = Selector(text=self.search(word))
             text = response.xpath('//p[@itemprop="description"]/span').getall()
             if len(text)>0:
-                full_text, helper = '', ''
-                howmany = 0
-                for r in range (1, len(text) -1):
-                    text[r] = text[r].replace('<span>', '').replace('</span>', '').replace('<span class="tag">', '').replace('<i>', '').replace('</i>', '').replace('<a href="', '').replace('</a>', '')
-                    if 'class="etim"' in text[r]:
-                        break
-                    elif 'class="cl"' in text[r]:
-                        howmany +=1
-                    else:
-                        while '>' in text[r]:
-                            where = text[r].find('>')
-                            helper = text[r][where+1:]
-                            where = text[r].find('/')
-                            text[r] = text[r][:where] + ' ' + helper
-                        full_text = full_text + f'{r-howmany}°: ' + text[r] + '\n\n'
-                if len(full_text)>0:
-                    return True, full_text
+                formatted_text = ''
+                global which_one
+                which_one = 0
+                def text_formatter(arr)->str:
+                    global which_one
+                    if 'class="cl"' in arr or 'class="etim"' in arr:
+                        return ''
+                    which_one+=1
+                    return f'{which_one}º: {re.sub("<[^>]*>", "", arr)}\n\n'
+                formatted_text = ''.join(list(map(text_formatter, text)))
+                if len(formatted_text)>0:
+                    return True, formatted_text
                 else:
                     return False, 'not found'
             else:
@@ -127,24 +116,22 @@ class Spanish(Dictionary):
     
     def returnMeaning(self, word):
         import unicodedata
-        import re
         word = unicodedata.normalize('NFD', word)
         word = re.sub('[\u0300-\u036f]', '', word)
         try:
             response = Selector(text=self.search(word))
             text = response.xpath('//ol[@class="entry"]//li').getall()
             if len(text)>0:
-                full_text, helper = '', ''
-                for r in range(len(text)):
-                    text[r] = text[r].replace('<li>', '').replace('</li>', '').replace('<br>', '\n\t\t').replace('</span>', '').replace('<span>', '').replace('<i>', '').replace('</i>', '')
-                    while '<span' in text[r]:
-                        where = text[r].find('<')
-                        helper = text[r][:where]
-                        where = text[r].find('>')
-                        text[r] = helper + ' ' + text[r][where+1:]
-                    full_text = full_text + f'{r+1}°: ' + text[r] + '\n\n'
-                if len(full_text)>0:
-                    return True, full_text
+                global which_one
+                which_one = 0
+                def text_formatter(arr)->str:
+                    global which_one
+                    which_one+=1
+                    arr = arr.replace('<br>', '\n\t\t')
+                    return f'{which_one}º:' + re.sub("<[^>]*>", "", arr)
+                formatted_text = '\n\n'.join(list(map(text_formatter, text)))
+                if len(formatted_text)>0:
+                    return True, formatted_text
                 else:
                     return False, 'Not found'
             else:
