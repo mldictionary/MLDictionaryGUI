@@ -36,9 +36,7 @@ class Handler:
 
     def on_button_search_clicked(self, widget):
         import re
-        word = self.entry.get_text().lower().strip()
-        word = re.sub('[^\w ]+', '', word)
-        if len(word)>0:
+        if len(word := re.sub('[^\w ]+', '', self.entry.get_text().lower().strip()))>0:
             self.current_word.set_text(word.upper())
             if self.language.__repr__() == 'English':
                 self.current_source.set_markup(f'<a href="{self.language_source + f"dictionary/english/" + word}"> {self.language_source + f"dictionary/english/" + word}</a>')
@@ -69,8 +67,7 @@ class Handler:
 
  
     def on_button_play_sound_clicked(self, widget):
-        word = self.current_word.get_text().lower()
-        if len(word.strip()) > 0 and self.is_to_play:
+        if len(word := self.current_word.get_text().lower().strip()) > 0 and self.is_to_play:
             self.pronounce.play_audio(word, self.language.__repr__())
         self.show_up_pronounce_spell(word, self.current_language.get_text())
                 

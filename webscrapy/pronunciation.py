@@ -1,10 +1,9 @@
-from requests_html import HTMLSession
 import os
-
+from requests_html import HTMLSession
 from parsel import Selector
 
 class Pronunciation:
-
+    
     def search(self, word, language):
         session = HTMLSession()
         r = session.get(f'https://www.google.com/search?q={word}+pronunciation+{language}&oq={word}+pronuncia+{language}')
@@ -15,8 +14,7 @@ class Pronunciation:
     def return_pronounce_spell(self, word, language):
         element = Selector(text=self.search(word, language))
         html_element = element.css('span.seLqNc[jsname="dDjxrf"]::text').getall()
-        pronounce_spell = ' - '.join(html_element)
-        if len(pronounce_spell.strip()) > 0:
+        if len(pronounce_spell := ' - '.join(html_element)) > 0:
             return pronounce_spell
         else:
             return 'There is not pronounce spell available, put accent when is necessary'
