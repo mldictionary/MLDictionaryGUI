@@ -21,7 +21,7 @@ Some python libs and software are required to run this program
 ### Python libs
 
 ```
-pip3 install parsel requests_html 
+pip3 install -r requirements.txt
 ```
 
 ### Ubuntu and/or Debian base
