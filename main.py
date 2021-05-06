@@ -26,9 +26,9 @@ class Handler:
         self.language_source = 'https://dictionary.cambridge.org/us/'
         
         self.play_sound = builder.get_object('play_sound')
-        self.pronounce_spell = builder.get_object('pronounce_spell')
         self.is_to_play = False
-        self.pronounce_last_word = ''
+        self.pronounce_spell = builder.get_object('pronounce_spell')
+        self.is_to_search_pronounce_spell = False
 
     def onDestroy(self, *args):
         Gtk.main_quit()
@@ -58,12 +58,14 @@ class Handler:
                 self.label.set_text(f'The word "{word}" was not found' + '\nPlease, check the word\'s spelling and/or your connection')
                 self.pronounce_spell.set_text('')
             self.is_to_play = result[0]
+            self.is_to_search_pronounce_spell = result[0]
+
 
 
     def show_up_pronounce_spell(self, word, language):
-        if word != self.pronounce_last_word:
+        if self.is_to_search_pronounce_spell:
             self.pronounce_spell.set_text(self.pronounce.return_pronounce_spell(word, language))
-            self.pronounce_last_word = word
+            self.is_to_search_pronounce_spell = False
 
  
     def on_button_play_sound_clicked(self, widget):
