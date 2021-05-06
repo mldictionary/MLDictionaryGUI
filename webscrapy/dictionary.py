@@ -10,7 +10,7 @@ class Dictionary(ABC):
 
         
     @abstractmethod
-    def search(self, word):
+    def _search(self, word):
         ...
 
 
@@ -25,12 +25,12 @@ class English(Dictionary):
         return 'English'
     
   
-    def search(self, word):
+    def _search(self, word):
         return requests.get(f'https://dictionary.cambridge.org/us/dictionary/english/{word}', headers={'User-Agent': 'Mozilla/5.0'}).text
 
     def returnMeaning(self, word):
         try:
-            response = Selector(text=self.search(word))
+            response = Selector(text=self._search(word))
             if len(text := response.xpath('//div[has-class("def", "ddef_d", "db")]').getall())>0:
                 text = list(map(lambda arr: re.sub('<[^>]*>', '', arr), text))
                 formatted_text = ''
@@ -57,7 +57,7 @@ class Portuguese(Dictionary):
         return 'Portuguese'
 
     
-    def search(self, word):
+    def _search(self, word):
         return requests.get(f'https://www.dicio.com.br/{word}/', headers={'User-Agent': 'Mozilla/5.0'}).text
 
     
@@ -67,7 +67,7 @@ class Portuguese(Dictionary):
         word = re.sub('[\u0300-\u036f]', '', word)
        
         try:
-            response = Selector(text=self.search(word))
+            response = Selector(text=self._search(word))
             text = response.xpath('//p[@itemprop="description"]/span').getall()
             if len(text := response.xpath('//p[@itemprop="description"]/span').getall())>0:
                 formatted_text = ''
@@ -96,7 +96,7 @@ class Spanish(Dictionary):
         return 'Spanish'
     
    
-    def search(self, word):
+    def _search(self, word):
         return requests.get(f'https://www.wordreference.com/definicion/{word}', headers={'User-Agent': 'Mozilla/5.0'}).text
         
     
@@ -105,7 +105,7 @@ class Spanish(Dictionary):
         word = unicodedata.normalize('NFD', word)
         word = re.sub('[\u0300-\u036f]', '', word)
         try:
-            response = Selector(text=self.search(word))
+            response = Selector(text=self._search(word))
             if len(text := response.xpath('//ol[@class="entry"]//li').getall())>0:
                 global which_one
                 which_one = 0
