@@ -19,25 +19,8 @@ language options: English, Portuguese and Spanish
 
 # ⚈ Requirements
 
-### Python libs
-
 ```
 pip3 install -r requirements.txt
-```
-
-### Ubuntu and/or Debian base
-```
-sudo apt install mpg123
-```
-
-### Fedora and/or Red Hat base
-```
-sudo dnf install mpg123
-```
-
-### Manjaro and/or Arch base
-```
-sudo pacman -S mpg123 
 ```
 ---
 
