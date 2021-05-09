@@ -1,6 +1,7 @@
 import requests, re
 from parsel import Selector
 from abc import ABC, abstractmethod
+# from threading import Thread, Event
 
 class Dictionary(ABC):
     
@@ -15,7 +16,7 @@ class Dictionary(ABC):
 
 
     @abstractmethod
-    def returnMeaning(self, word):
+    def return_meaning(self, word):
         ...
 
 
@@ -28,7 +29,7 @@ class English(Dictionary):
     def _search(self, word):
         return requests.get(f'https://dictionary.cambridge.org/us/dictionary/english/{word}', headers={'User-Agent': 'Mozilla/5.0'}).text
 
-    def returnMeaning(self, word):
+    def return_meaning(self, word):
         try:
             response = Selector(text=self._search(word))
             if len(text := response.xpath('//div[has-class("def", "ddef_d", "db")]').getall())>0:
@@ -61,7 +62,7 @@ class Portuguese(Dictionary):
         return requests.get(f'https://www.dicio.com.br/{word}/', headers={'User-Agent': 'Mozilla/5.0'}).text
 
     
-    def returnMeaning(self, word):
+    def return_meaning(self, word):
         import unicodedata
         word = unicodedata.normalize('NFD', word)
         word = re.sub('[\u0300-\u036f]', '', word)
@@ -100,7 +101,7 @@ class Spanish(Dictionary):
         return requests.get(f'https://www.wordreference.com/definicion/{word}', headers={'User-Agent': 'Mozilla/5.0'}).text
         
     
-    def returnMeaning(self, word):
+    def return_meaning(self, word):
         import unicodedata
         word = unicodedata.normalize('NFD', word)
         word = re.sub('[\u0300-\u036f]', '', word)

@@ -42,7 +42,7 @@ class Handler:
                 self.current_source.set_markup(f'<a href="{self.language_source + f"dictionary/english/" + word}"> {self.language_source + f"dictionary/english/" + word}</a>')
             else:
                 self.current_source.set_markup(f'<a href="{self.language_source + word}">{self.language_source + word}</a>')
-            result = self.language.returnMeaning(word)
+            result = self.language.return_meaning(word)
             if result[0]:
                 self.label.set_yalign(0)
                 self.label.set_xalign(0)
