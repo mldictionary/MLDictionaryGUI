@@ -10,9 +10,9 @@ class Dictionary(ABC):
         ...
 
     
-    @classmethod
+    @staticmethod
     @abstractmethod
-    def _search(cls, word):
+    def _search(word):
         ...
 
 
@@ -26,8 +26,8 @@ class English(Dictionary):
     def __repr__(self):
         return 'English'
     
-    @classmethod
-    def _search(cls, word):
+    @staticmethod
+    def _search(word):
         return requests.get(f'https://dictionary.cambridge.org/us/dictionary/english/{word}', headers={'User-Agent': 'Mozilla/5.0'}).text
 
     def return_meaning(self, word):
@@ -58,8 +58,8 @@ class Portuguese(Dictionary):
     def __repr__(self):
         return 'Portuguese'
 
-    @classmethod
-    def _search(cls, word):
+    @staticmethod
+    def _search(word):
         return requests.get(f'https://www.dicio.com.br/{word}/', headers={'User-Agent': 'Mozilla/5.0'}).text
 
     
@@ -97,8 +97,8 @@ class Spanish(Dictionary):
     def __repr__(self):
         return 'Spanish'
     
-    @classmethod
-    def _search(cls, word):
+    @staticmethod
+    def _search(word):
         return requests.get(f'https://www.wordreference.com/definicion/{word}', headers={'User-Agent': 'Mozilla/5.0'}).text
         
     
