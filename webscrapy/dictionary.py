@@ -1,7 +1,7 @@
 import requests, re
 from parsel import Selector
 from abc import ABC, abstractmethod
-# from threading import Thread, Event
+# from multiprocessing import Process
 
 class Dictionary(ABC):
     
@@ -9,9 +9,10 @@ class Dictionary(ABC):
     def __repr__(self):
         ...
 
-        
+    
+    @classmethod
     @abstractmethod
-    def _search(self, word):
+    def _search(cls, word):
         ...
 
 
@@ -25,8 +26,8 @@ class English(Dictionary):
     def __repr__(self):
         return 'English'
     
-  
-    def _search(self, word):
+    @classmethod
+    def _search(cls, word):
         return requests.get(f'https://dictionary.cambridge.org/us/dictionary/english/{word}', headers={'User-Agent': 'Mozilla/5.0'}).text
 
     def return_meaning(self, word):
@@ -57,8 +58,8 @@ class Portuguese(Dictionary):
     def __repr__(self):
         return 'Portuguese'
 
-    
-    def _search(self, word):
+    @classmethod
+    def _search(cls, word):
         return requests.get(f'https://www.dicio.com.br/{word}/', headers={'User-Agent': 'Mozilla/5.0'}).text
 
     
@@ -96,8 +97,8 @@ class Spanish(Dictionary):
     def __repr__(self):
         return 'Spanish'
     
-   
-    def _search(self, word):
+    @classmethod
+    def _search(cls, word):
         return requests.get(f'https://www.wordreference.com/definicion/{word}', headers={'User-Agent': 'Mozilla/5.0'}).text
         
     
