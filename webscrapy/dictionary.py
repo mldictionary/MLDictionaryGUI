@@ -41,9 +41,9 @@ class English(Dictionary):
                     if text[i] in formatted_text:
                         how_many+=1
                     else:
-                        formatted_text += f'{i+1-how_many}º: ' + text[i] + '\n\n'
+                        formatted_text += f'{i+1-how_many}º: ' + text[i].replace(':', '.') + '\n\n'
                 if len(formatted_text)>0:
-                    return True, formatted_text.replace(':', '. ').replace('\n        \n         ', ':  ')
+                    return True, formatted_text.replace('\n        \n         ', ':  ')
                 else:
                     return False, 'not found'
             else:
