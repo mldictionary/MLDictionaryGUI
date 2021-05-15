@@ -8,7 +8,7 @@ from shutil import copyfileobj, rmtree
 
 class Pronunciation:
     
-    PATH = '.multilangauge_dictionary'
+    PATH = '.multilanguage_dictionary'
     PATH_AUDIO = PATH + '/audio'
     
     def _search(self, word, language):
