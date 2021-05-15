@@ -2,11 +2,14 @@ import os, requests
 from requests_html import HTMLSession
 from parsel import Selector
 from playsound import playsound
-from shutil import copyfileobj
-from sys import path
+from shutil import copyfileobj, rmtree
+
 
 
 class Pronunciation:
+    
+    PATH = '.multilangauge_dictionary'
+    PATH_AUDIO = PATH + '/audio'
     
     def _search(self, word, language):
         session = HTMLSession()
@@ -33,12 +36,16 @@ class Pronunciation:
         elif language == 'Spanish':
             play_word = word + '_es_es_1.mp3'
         try:
-            response = requests.get(f'https://ssl.gstatic.com/dictionary/static/pronunciation/2021-03-01/audio/{word[:2]}/{play_word}', stream=True)
-            play_word_path = f'{path[0]}/{play_word}'
+            url = f'https://ssl.gstatic.com/dictionary/static/pronunciation/2021-03-01/audio/{word[:2]}/{play_word}'
+            response = requests.get(url, stream=True)
+            if os.path.exists(self.PATH):
+                rmtree(self.PATH)
+            os.makedirs(self.PATH_AUDIO)
+            play_word_path = f'{self.PATH_AUDIO}/{play_word}'
             with open(play_word_path, 'wb') as file:
                 copyfileobj(response.raw, file)
             playsound(play_word_path)
-            os.remove(play_word_path)
-        except:
-            ...
+            rmtree(self.PATH)
+        except Exception as error:
+            print(error)
         
