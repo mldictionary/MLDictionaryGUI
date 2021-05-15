@@ -3,6 +3,7 @@ from requests_html import HTMLSession
 from parsel import Selector
 from playsound import playsound
 from shutil import copyfileobj
+from sys import path
 
 
 class Pronunciation:
@@ -31,14 +32,13 @@ class Pronunciation:
             play_word = word + '_pt-BR_br_1.mp3'
         elif language == 'Spanish':
             play_word = word + '_es_es_1.mp3'
-        else:
-            return
         try:
             response = requests.get(f'https://ssl.gstatic.com/dictionary/static/pronunciation/2021-03-01/audio/{word[:2]}/{play_word}', stream=True)
-            with open(play_word, 'wb') as file:
+            play_word_path = f'{path[0]}/{play_word}'
+            with open(play_word_path, 'wb') as file:
                 copyfileobj(response.raw, file)
-            playsound(play_word)
-            os.remove(play_word)
+            playsound(play_word_path)
+            os.remove(play_word_path)
         except:
             ...
         
