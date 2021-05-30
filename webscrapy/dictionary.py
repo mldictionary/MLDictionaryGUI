@@ -45,6 +45,7 @@ class English(Dictionary):
                 for i in range(len(text)):
                     if text[i] in formatted_text:
                         how_many+=1
+                        continue
                     else:
                         formatted_text += f'{i+1-how_many}º: ' + text[i].replace(':', '.') + '\n\n'
                 if len(formatted_text)>0:
@@ -74,10 +75,9 @@ class Portuguese(Dictionary):
         try:
             if len(text := self._get_meanings(word))>0:
                 formatted_text = ''
-                global which_one
                 which_one = 0
                 def text_formatter(arr)->str:
-                    global which_one
+                    nonlocal which_one
                     if 'class="cl"' in arr or 'class="etim"' in arr:
                         return ''
                     which_one+=1
@@ -107,10 +107,9 @@ class Spanish(Dictionary):
         word = re.sub('[\u0300-\u036f]', '', word)
         try:
             if len(text := self._get_meanings(word))>0:
-                global which_one
                 which_one = 0
                 def text_formatter(arr)->str:
-                    global which_one
+                    nonlocal which_one
                     which_one+=1
                     arr = arr.replace('<br>', '\n\t\t')
                     return f'{which_one}º:' + re.sub("<[^>]*>", "", arr)
