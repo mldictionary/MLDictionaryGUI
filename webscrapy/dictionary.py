@@ -1,19 +1,26 @@
 import requests, re
 from parsel import Selector
 from abc import ABC, abstractmethod
+from typing import List
 # from multiprocessing import Process
 
 class Dictionary(ABC):
+    URL: str
+    XPATH: str
     
     @abstractmethod
     def __repr__(self):
         ...
 
     
-    @staticmethod
-    @abstractmethod
-    def _search(word):
-        ...
+    @classmethod
+    def _search(cls, word: str)->str:
+        return requests.get(cls.URL.format(word), headers={'User-Agent': 'Mozilla/5.0'}).text
+
+    @classmethod
+    def _get_meanings(cls, word: str)->List[str]:
+        response = Selector(text=cls._search(word))
+        return response.xpath(cls.XPATH).getall()
 
 
     @abstractmethod
@@ -22,18 +29,16 @@ class Dictionary(ABC):
 
 
 class English(Dictionary):
-   
+    URL = 'https://dictionary.cambridge.org/us/dictionary/english/{}'
+    XPATH = '//div[has-class("def", "ddef_d", "db")]'
+    
     def __repr__(self):
         return 'English'
-    
-    @staticmethod
-    def _search(word):
-        return requests.get(f'https://dictionary.cambridge.org/us/dictionary/english/{word}', headers={'User-Agent': 'Mozilla/5.0'}).text
+
 
     def return_meaning(self, word):
         try:
-            response = Selector(text=self._search(word))
-            if len(text := response.xpath('//div[has-class("def", "ddef_d", "db")]').getall())>0:
+            if len(text := self._get_meanings(word))>0:
                 text = list(map(lambda arr: re.sub('<[^>]*>', '', arr), text))
                 formatted_text = ''
                 how_many = 0
@@ -55,24 +60,20 @@ class English(Dictionary):
 
 
 class Portuguese(Dictionary):
-
+    URL = 'https://www.dicio.com.br/{}/'
+    XPATH = '//p[@itemprop="description"]/span'
+    
     def __repr__(self):
         return 'Portuguese'
 
-    @staticmethod
-    def _search(word):
-        return requests.get(f'https://www.dicio.com.br/{word}/', headers={'User-Agent': 'Mozilla/5.0'}).text
 
-    
     def return_meaning(self, word):
         import unicodedata
         word = unicodedata.normalize('NFD', word)
         word = re.sub('[\u0300-\u036f]', '', word)
-       
+    
         try:
-            response = Selector(text=self._search(word))
-            text = response.xpath('//p[@itemprop="description"]/span').getall()
-            if len(text := response.xpath('//p[@itemprop="description"]/span').getall())>0:
+            if len(text := self._get_meanings(word))>0:
                 formatted_text = ''
                 which_one = 0
                 def text_formatter(arr)->str:
@@ -93,22 +94,19 @@ class Portuguese(Dictionary):
         
 
 class Spanish(Dictionary):
-   
+    URL = 'https://www.wordreference.com/definicion/{}'
+    XPATH = '//ol[@class="entry"]//li'
+    
     def __repr__(self):
         return 'Spanish'
     
-    @staticmethod
-    def _search(word):
-        return requests.get(f'https://www.wordreference.com/definicion/{word}', headers={'User-Agent': 'Mozilla/5.0'}).text
-        
     
     def return_meaning(self, word):
         import unicodedata
         word = unicodedata.normalize('NFD', word)
         word = re.sub('[\u0300-\u036f]', '', word)
         try:
-            response = Selector(text=self._search(word))
-            if len(text := response.xpath('//ol[@class="entry"]//li').getall())>0:
+            if len(text := self._get_meanings(word))>0:
                 which_one = 0
                 def text_formatter(arr)->str:
                     nonlocal which_one
