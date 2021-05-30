@@ -14,8 +14,11 @@ class Dictionary(ABC):
     
     @classmethod
     def _search(cls, word: str)->str:
-        return requests.get(cls.URL.format(word), headers={'User-Agent': 'Mozilla/5.0'}).text
-
+        with requests.get(cls.URL.format(word), \
+                            headers={'User-Agent': 'Mozilla/5.0'}) as response:
+            return response.text
+        
+        
     @classmethod
     def _get_meanings(cls, word: str)->List[str]:
         response = Selector(text=cls._search(word))
