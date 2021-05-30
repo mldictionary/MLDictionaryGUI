@@ -45,12 +45,12 @@ class Handler:
             else:
                 self.current_source.set_markup(f'<a href="{self.language_source + word}">{self.language_source + word}</a>')
             result = self.language.return_meaning(word)
-            if result[0]:
+            if result:
                 self.label.set_yalign(0)
                 self.label.set_xalign(0)
                 self.label.set_justify(Gtk.Justification.LEFT)
                 self.label.set_selectable(True)
-                self.label.set_text(result[1])
+                self.label.set_text(result)
                 self.pronounce_spell.set_text('Click on sound to see the word\'s pronounce spell')            
             else:
                 self.label.set_yalign(0.5)
@@ -59,8 +59,8 @@ class Handler:
                 self.label.set_selectable(False)
                 self.label.set_text(f'The word "{word}" was not found' + '\nPlease, check the word\'s spelling and/or your connection')
                 self.pronounce_spell.set_text('')
-            self.is_to_play = result[0]
-            self.is_to_search_pronounce_spell = result[0]
+            self.is_to_play = result
+            self.is_to_search_pronounce_spell = result
 
 
 
