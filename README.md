@@ -11,7 +11,7 @@ Search for word definitions in a GTK application <br><br>
 ---
 
 # ⚈ About
-This is a program that searches for word definitions on several languages, showing your definition, pronounce spell and playing an audio pronounce when available. 
+A GTK application which searches for word definitions on several languages, showing your definition, pronounce spell and playing an audio pronounce when available.
 
 language options: English, Portuguese and Spanish
 
