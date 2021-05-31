@@ -50,6 +50,7 @@ class English(Dictionary):
                         continue
                     else:
                         formatted_text += f'{i+1-how_many}º: ' + text[i].replace(':', '.') + '\n\n'
+                formatted_text = formatted_text.replace(' \n    \t               ', '').strip()
                 return formatted_text.replace('\n        \n         ', ':  ') or False
             else:
                 return False
