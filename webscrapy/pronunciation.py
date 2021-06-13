@@ -1,9 +1,10 @@
-import os, requests
-from requests_html import HTMLSession
-from parsel import Selector
-from playsound import playsound
+import os
+import requests
 from shutil import copyfileobj, rmtree
 
+from parsel import Selector
+from playsound import playsound
+from requests_html import HTMLSession
 
 class Pronunciation:
     

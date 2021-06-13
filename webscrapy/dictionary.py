@@ -1,7 +1,10 @@
-import requests, re, unicodedata
-from parsel import Selector
 from abc import ABC, abstractmethod
-from typing import List, Union
+import unicodedata
+import re
+import requests
+from typing import Set, Union
+
+from parsel import Selector
 
 class Dictionary(ABC):
     URL: str
