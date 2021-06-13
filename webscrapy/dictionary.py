@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import unicodedata
 import re
 import requests
-from typing import Set, Union
+from typing import List, Union
 
 from parsel import Selector
 
@@ -23,10 +23,10 @@ class Dictionary(ABC):
         
         
     @classmethod
-    def _get_meanings(cls, word: str)->Set[str]:
+    def _get_meanings(cls, word: str)->List[str]:
         response = Selector(text=cls._search(word))
-        meanings = response.xpath(cls.XPATH).getall()
-        return set(map(lambda mean: re.sub('<[^>]*>', '', mean), meanings))
+        meanings = list(dict.fromkeys(response.xpath(cls.XPATH).getall())) # don't allow duplicated item
+        return list(map(lambda mean: re.sub('<[^>]*>', '', mean), meanings))
 
 
     @abstractmethod
