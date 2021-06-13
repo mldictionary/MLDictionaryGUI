@@ -5,6 +5,7 @@ import requests
 from typing import List, Union
 
 from parsel import Selector
+from six import indexbytes
 
 class Dictionary(ABC):
     URL: str
@@ -26,7 +27,7 @@ class Dictionary(ABC):
     def _get_meanings(cls, word: str)->List[str]:
         response = Selector(text=cls._search(word))
         meanings = list(dict.fromkeys(response.xpath(cls.XPATH).getall())) # don't allow duplicated item
-        return list(map(lambda mean: re.sub('<[^>]*>', '', mean), meanings))
+        return meanings
 
 
     @abstractmethod
@@ -45,12 +46,13 @@ class English(Dictionary):
     def return_meaning(self, word: str)->Union[str, bool]:
         try:
             if len(meanings := self._get_meanings(word))>0:
-                how_many = 0
+                meanings = list(map(lambda mean: re.sub('<[^>]*>', '', mean), meanings))
+                index = 0
                 def text_formatter(mean: str)->str:
-                    nonlocal how_many
-                    how_many += 1
+                    nonlocal index
+                    index += 1
                     mean = mean.replace('\n    \t                ', '').replace(':', '.')
-                    return f'{how_many}°: ' + mean
+                    return f'{index}°: ' + mean
                 return '\n\n'.join(list(map(text_formatter, meanings))).replace('\n        \n         ', ':  ') or False
             else:
                 return False
@@ -78,8 +80,8 @@ class Portuguese(Dictionary):
                     if 'class="cl"' in mean or 'class="etim"' in mean:
                         return ''
                     index+=1
-                    return f'{index}º: ' + mean
-                return '\n\n'.join(list(map(text_formatter, meanings))) or False
+                    return f'{index}º: ' + re.sub('<[^>]*>', '', mean) + '\n\n'
+                return ''.join(list(map(text_formatter, meanings))).replace('&*remove*&', '') or False
             else:
                 return False
         except Exception as error:
@@ -105,7 +107,7 @@ class Spanish(Dictionary):
                     nonlocal index
                     index+=1
                     mean = mean.replace('<br>', '\n\t\t')
-                    return f'{index}º: ' + mean
+                    return f'{index}º: ' + re.sub('<[^>]*>', '', mean)
                 return '\n\n'.join(list(map(text_formatter, meanings))) or False
             else:
                 return False
