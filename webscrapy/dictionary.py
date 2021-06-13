@@ -44,18 +44,14 @@ class English(Dictionary):
 
     def return_meaning(self, word: str)->Union[str, bool]:
         try:
-            if len(text := self._get_meanings(word))>0:
-                text = list(map(lambda mean: re.sub('<[^>]*>', '', mean), text))
-                formatted_text = ''
+            if len(meanings := self._get_meanings(word))>0:
                 how_many = 0
-                for i in range(len(text)):
-                    if text[i] in formatted_text:
-                        how_many+=1
-                        continue
-                    else:
-                        formatted_text += f'{i+1-how_many}º: ' + text[i].replace(':', '.') + '\n\n'
-                formatted_text = formatted_text.replace(' \n    \t               ', '').strip()
-                return formatted_text.replace('\n        \n         ', ':  ') or False
+                def text_formatter(mean: str)->str:
+                    nonlocal how_many
+                    how_many += 1
+                    mean = mean.replace('\n    \t                ', '').replace(':', '.')
+                    return f'{how_many}°: ' + mean
+                return '\n\n'.join(list(map(text_formatter, meanings))).replace('\n        \n         ', ':  ') or False
             else:
                 return False
         except Exception as error:
