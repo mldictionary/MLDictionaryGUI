@@ -10,17 +10,16 @@ class Pronunciation:
     
     PATH = '.multilanguage_dictionary'
     PATH_AUDIO = PATH + '/audio'
-    
-    @staticmethod
-    def _search(word: str, language: str)->str:
-        session = HTMLSession()
-        r = session.get(f'https://www.google.com/search?q={word}+pronunciation+{language}&oq={word}+pronuncia+{language}')
-        r.html.render()
-        return r.text
-    
-    
+
+
     def return_pronounce_spell(self, word: str, language: str)->str:
-        element = Selector(text=self._search(word, language))
+        def search(word: str, language: str)->str:
+            url = f'https://www.google.com/search?q={word}+pronunciation+{language}&oq={word}+pronuncia+{language}'
+            session = HTMLSession()
+            r = session.get(url)
+            r.html.render()
+            return r.text
+        element = Selector(text=search(word, language))
         html_element = element.css('span.seLqNc[jsname="dDjxrf"]::text').getall()
         if len(pronounce_spell := ' - '.join(html_element)) > 0:
             return pronounce_spell
