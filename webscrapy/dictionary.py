@@ -23,9 +23,10 @@ class Dictionary(ABC):
         
         
     @classmethod
-    def _get_meanings(cls, word: str)->List[str]:
+    def _get_meanings(cls, word: str)->Set[str]:
         response = Selector(text=cls._search(word))
-        return response.xpath(cls.XPATH).getall()
+        meanings = response.xpath(cls.XPATH).getall()
+        return set(map(lambda mean: re.sub('<[^>]*>', '', mean), meanings))
 
 
     @abstractmethod
