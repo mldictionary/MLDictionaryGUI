@@ -1,12 +1,10 @@
-import webscrapy
+from sys import path
 
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
-from sys import path
-
-
+import webscrapy
 
 builder = Gtk.Builder()
 builder.add_from_file(f'{path[0]}/glade/interface.glade')
