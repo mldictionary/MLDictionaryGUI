@@ -71,15 +71,15 @@ class Portuguese(Dictionary):
         word = unicodedata.normalize('NFD', word)
         word = re.sub('[\u0300-\u036f]', '', word)
         try:
-            if len(text := self._get_meanings(word))>0:
-                which_one = 0
+            if len(meanings := self._get_meanings(word))>0:
+                index = 0
                 def text_formatter(mean: str)->str:
-                    nonlocal which_one
+                    nonlocal index
                     if 'class="cl"' in mean or 'class="etim"' in mean:
                         return ''
-                    which_one+=1
-                    return f'{which_one}º: {re.sub("<[^>]*>", "", mean)}\n\n'
-                return ''.join(list(map(text_formatter, text))) or False
+                    index+=1
+                    return f'{index}º: ' + mean
+                return '\n\n'.join(list(map(text_formatter, meanings))) or False
             else:
                 return False
         except Exception as error:
@@ -99,14 +99,14 @@ class Spanish(Dictionary):
         word = unicodedata.normalize('NFD', word)
         word = re.sub('[\u0300-\u036f]', '', word)
         try:
-            if len(text := self._get_meanings(word))>0:
-                which_one = 0
+            if len(meanings := self._get_meanings(word))>0:
+                index = 0
                 def text_formatter(mean: str)->str:
-                    nonlocal which_one
-                    which_one+=1
+                    nonlocal index
+                    index+=1
                     mean = mean.replace('<br>', '\n\t\t')
-                    return f'{which_one}º:' + re.sub("<[^>]*>", "", mean)
-                return '\n\n'.join(list(map(text_formatter, text))) or False
+                    return f'{index}º: ' + mean
+                return '\n\n'.join(list(map(text_formatter, meanings))) or False
             else:
                 return False
         except Exception as error:
