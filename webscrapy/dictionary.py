@@ -45,13 +45,12 @@ class English(Dictionary):
     def return_meaning(self, word: str)->Union[str, bool]:
         try:
             if len(meanings := self._get_meanings(word))>0:
-                meanings = list(map(lambda mean: re.sub('<[^>]*>', '', mean), meanings))
                 index = 0
                 def text_formatter(mean: str)->str:
                     nonlocal index
                     index += 1
                     mean = mean.replace('\n    \t                ', '').replace(':', '.')
-                    return f'{index}°: ' + mean
+                    return f'{index}°: ' + re.sub('<[^>]*>', '', mean)
                 return '\n\n'.join(list(map(text_formatter, meanings))).replace('\n        \n         ', ':  ') or False
             else:
                 return False
