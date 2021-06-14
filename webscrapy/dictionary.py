@@ -5,7 +5,6 @@ import requests
 from typing import List, Union
 
 from parsel import Selector
-from six import indexbytes
 
 class Dictionary(ABC):
     URL: str
