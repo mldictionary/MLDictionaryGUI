@@ -40,10 +40,8 @@ class Handler:
         import re
         if len(word := re.sub('[^\w ]+', '', self.entry.get_text().lower().strip()))>0:
             self.current_word.set_text(word.upper())
-            if self.language.__repr__() == 'English':
-                self.current_source.set_markup(f'<a href="{self.language_source + f"dictionary/english/" + word}"> {self.language_source + f"dictionary/english/" + word}</a>')
-            else:
-                self.current_source.set_markup(f'<a href="{self.language_source + word}">{self.language_source + word}</a>')
+            source = f'<a href="{self.language.URL.format(word)}">' + self.language.URL.format(word) + '</a>'
+            self.current_source.set_markup(source)
             if result := self.language.return_meaning(word):
                 self.label.set_yalign(0)
                 self.label.set_xalign(0)
