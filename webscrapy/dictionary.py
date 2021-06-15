@@ -1,10 +1,13 @@
 from abc import ABC, abstractmethod
+import logging
 import unicodedata
 import re
 import requests
 from typing import List, Union
 
 from parsel import Selector
+
+logging.basicConfig(level='ERROR', format='%(asctime)s - %(levelname)s - %(message)s')
 
 class Dictionary(ABC):
     URL: str
@@ -55,7 +58,7 @@ class English(Dictionary):
             else:
                 return False
         except Exception as error:
-            print(error)
+            logging.error(error)
             return False
 
 
@@ -83,7 +86,7 @@ class Portuguese(Dictionary):
             else:
                 return False
         except Exception as error:
-            print(error)
+            logging.error(error)
             return False
         
 
@@ -110,5 +113,5 @@ class Spanish(Dictionary):
             else:
                 return False
         except Exception as error:
-            print(error)
+            logging.error(error)
             return False

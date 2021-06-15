@@ -1,10 +1,13 @@
 import os
+import logging
 import requests
 from shutil import copyfileobj, rmtree
 
 from parsel import Selector
 from playsound import playsound
 from requests_html import HTMLSession
+
+logging.basicConfig(level='ERROR', format='%(asctime)s - %(levelname)s - %(message)s')
 
 class Pronunciation:
     
@@ -47,6 +50,6 @@ class Pronunciation:
                 copyfileobj(response.raw, file)
             playsound(play_word_path)
         except Exception as error:
-            print(error)
+            logging.error(error)
         rmtree(self.PATH)
 
