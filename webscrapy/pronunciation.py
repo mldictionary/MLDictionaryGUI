@@ -22,12 +22,15 @@ class Pronunciation:
             r = session.get(url)
             r.html.render()
             return r.text
-        element = Selector(text=search(word, language))
-        html_element = element.css('span.seLqNc[jsname="dDjxrf"]::text').getall()
-        if len(pronounce_spell := ' - '.join(html_element)) > 0:
-            return pronounce_spell
-        else:
-            return 'There is not pronounce spell available, put accent when is necessary'
+        try:
+            element = Selector(text=search(word, language))
+            html_element = element.css('span.seLqNc[jsname="dDjxrf"]::text').getall()
+            if len(pronounce_spell := ' - '.join(html_element)) > 0:
+                return pronounce_spell
+            else:
+                return 'There is not pronounce spell available, put accent when is necessary'
+        except Exception as error:
+            logging.error(error)
         
     
     def play_audio(self, word: str, language: str)->None:
