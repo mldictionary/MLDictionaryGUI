@@ -21,7 +21,7 @@ class Dictionary(ABC):
     @classmethod
     def _search(cls, word: str)->str:
         with requests.get(cls.URL.format(word), \
-                            headers={'User-Agent': 'Mozilla/5.0'}) as response:
+                            headers={'User-Agent': 'Mozilla'}) as response:
             return response.text
         
         
