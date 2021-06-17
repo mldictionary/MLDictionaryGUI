@@ -1,3 +1,6 @@
+#!/bin/python3
+
+
 from sys import path
 
 import gi
