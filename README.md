@@ -48,7 +48,7 @@ The following tools were used in the construction of the project:
 - [Gtk](https://www.gtk.org/)
 - [Glade](https://glade.gnome.org/)
 - [Parsel](https://pypi.org/project/parsel/)
-
+- [MLDictionary](https://pypi.org/project/mldictionary/)
 ---
 
 # ⚈ Bugs and Features
