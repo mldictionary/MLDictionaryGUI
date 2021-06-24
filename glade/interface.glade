@@ -35,6 +35,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="margin-start">6</property>
+                <property name="max-length">50</property>
                 <property name="primary-icon-name">system-search-symbolic</property>
                 <property name="placeholder-text" translatable="yes">type here</property>
                 <property name="input-purpose">alpha</property>
