@@ -1,2 +1,2 @@
-from .dictionary import English, Portuguese, Spanish
+from mldictionary import English, Portuguese, Spanish
 from .pronunciation import Pronunciation
