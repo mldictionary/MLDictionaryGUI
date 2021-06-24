@@ -1,4 +1,42 @@
-requests==2.25.1
+mldictionary==0.1.6
+  - beautifulsoup4 [required: >=4.9.3, installed: 4.9.3]
+    - soupsieve [required: >1.2, installed: 2.2.1]
+  - requests [required: >=2.25.1, installed: 2.25.1]
+    - certifi [required: >=2017.4.17, installed: 2021.5.30]
+    - chardet [required: >=3.0.2,<5, installed: 4.0.0]
+    - idna [required: >=2.5,<3, installed: 2.10]
+    - urllib3 [required: >=1.21.1,<1.27, installed: 1.26.5]
 parsel==1.6.0
+  - cssselect [required: >=0.9, installed: 1.1.0]
+  - lxml [required: Any, installed: 4.6.3]
+  - six [required: >=1.6.0, installed: 1.16.0]
+  - w3lib [required: >=1.19.0, installed: 1.22.0]
+    - six [required: >=1.4.1, installed: 1.16.0]
 playsound==1.2.2
-requests_html==0.10.0
+requests-html==0.10.0
+  - bs4 [required: Any, installed: 0.0.1]
+    - beautifulsoup4 [required: Any, installed: 4.9.3]
+      - soupsieve [required: >1.2, installed: 2.2.1]
+  - fake-useragent [required: Any, installed: 0.1.11]
+  - parse [required: Any, installed: 1.19.0]
+  - pyppeteer [required: >=0.0.14, installed: 0.2.5]
+    - appdirs [required: >=1.4.3,<2.0.0, installed: 1.4.4]
+    - pyee [required: >=8.1.0,<9.0.0, installed: 8.1.0]
+    - tqdm [required: >=4.42.1,<5.0.0, installed: 4.61.1]
+    - urllib3 [required: >=1.25.8,<2.0.0, installed: 1.26.5]
+    - websockets [required: >=8.1,<9.0, installed: 8.1]
+  - pyquery [required: Any, installed: 1.4.3]
+    - cssselect [required: >0.7.9, installed: 1.1.0]
+    - lxml [required: >=2.1, installed: 4.6.3]
+  - requests [required: Any, installed: 2.25.1]
+    - certifi [required: >=2017.4.17, installed: 2021.5.30]
+    - chardet [required: >=3.0.2,<5, installed: 4.0.0]
+    - idna [required: >=2.5,<3, installed: 2.10]
+    - urllib3 [required: >=1.21.1,<1.27, installed: 1.26.5]
+  - w3lib [required: Any, installed: 1.22.0]
+    - six [required: >=1.4.1, installed: 1.16.0]
+setuptools==56.0.0
+vext.gi==0.7.4
+  - vext [required: >=0.7.4, installed: 0.7.6]
+    - ruamel.yaml [required: >=0.11.10, installed: 0.17.10]
+      - ruamel.yaml.clib [required: >=0.1.2, installed: 0.2.2]
