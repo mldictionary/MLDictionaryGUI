@@ -45,12 +45,18 @@ class Handler:
             self.current_word.set_text(word.upper())
             source = f'<a href="{self.language.URL.format(word)}">' + self.language.URL.format(word) + '</a>'
             self.current_source.set_markup(source)
-            if result := self.language.return_meaning(word):
+            if result := self.language.get_meanings(word):
+                if str(self.language)=='English':
+                    meanings = '\n\n'.join([f'{pos+1}º: {mean.replace(":", ".")}' for pos, mean in enumerate(result)])
+                elif str(self.language)=='Spanish':
+                    meanings = '\n\n'.join([f'{pos+1}º: {mean[5:]}' for pos, mean in enumerate(result)])
+                elif str(self.language)=='Portuguese':
+                    meanings = '\n\n'.join([f'{pos+1}º: {mean}' for pos, mean in enumerate(result)])
                 self.label.set_yalign(0)
                 self.label.set_xalign(0)
                 self.label.set_justify(Gtk.Justification.LEFT)
                 self.label.set_selectable(True)
-                self.label.set_text(result)
+                self.label.set_text(meanings)
                 self.pronounce_spell.set_text('Click on sound to see the word\'s pronounce spell')            
             else:
                 self.label.set_yalign(0.5)
@@ -72,7 +78,7 @@ class Handler:
  
     def on_button_play_sound_clicked(self, widget):
         if len(word := self.current_word.get_text().lower().strip()) > 0 and self.is_to_play:
-            self.pronounce.play_audio(word, self.language.__repr__())
+            self.pronounce.play_audio(word, str(self.language))
         self.show_up_pronounce_spell(word, self.current_language.get_text())
                 
     
@@ -85,9 +91,9 @@ class Handler:
             self.language_source = 'https://www.dicio.com.br/'
         elif self.combo.get_active() == 2:
             self.language = webscrapy.Spanish()
-            self.language_source = 'https://www.wordreference.com/definicion/'
+            self.language_source = 'https://dle.rae.es//'
             
-        self.current_language.set_text(self.language.__repr__() + ':')
+        self.current_language.set_text(str(self.language) + ':')
         self.current_word.set_text('')
         self.current_source.set_text(self.language_source)
         self.label.set_text('')
