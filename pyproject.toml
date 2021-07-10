@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "multilanguage-dictionary"
+version = "2.2.1"
+description = "A GTK application which searches for words' definitons on several languages"
+authors = ["Pablo Emidio <p.emidiodev@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/PabloEmidio/MultiLanguage-Dictionary"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Desktop Environment :: Gnome"
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+mldictionary = "^0.1.11"
+parsel = "^1.6.0"
+playsound = "^1.2.2"
+requests-html = "^0.10.0"
+vext = "^0.7.6"
+"vext.gi" = "^0.7.4"
+
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
