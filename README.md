@@ -2,12 +2,6 @@
   <img alt="icon" src="./media/window_icon_120-118.png">
 </h1>
 <h1 align="center">MultiLanguage Dictionary</h1>
-<h2 align="center" >
-Search for word definitions in a GTK application <br><br>
-    <a href="https://github.com/PabloEmidio/MultiLanguage-Dictionary/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/PabloEmidio/MultiLanguage-Dictionay?style=social"></a>&nbsp&nbsp
-    <a href="https://github.com/PabloEmidio"><img alt="Commit activity" src="https://img.shields.io/github/commit-activity/y/pabloemidio/MultiLanguage-Dictionary?logo=github&style=social"></a>&nbsp&nbsp
-      <a href="https://github.com/PabloEmidio"><img alt="GitHub followers" src="https://img.shields.io/github/followers/PabloEmidio?label=Follow%20me&style=social"></a>
-</h2>
 
 ---
 
