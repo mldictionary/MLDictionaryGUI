@@ -71,7 +71,7 @@ lxml==4.6.3; python_full_version >= "3.6.0" \
     --hash=sha256:33bb934a044cf32157c12bfcfbb6649807da20aa92c062ef51903415c704704f \
     --hash=sha256:542d454665a3e277f76954418124d67516c5f88e51a900365ed54a9806122b83 \
     --hash=sha256:39b78571b3b30645ac77b95f7c69d1bffc4cf8c3b157c435a34da72e78c82468
-mldictionary==0.1.11; python_version >= "3.9" and python_version < "4.0" \
+mldictionary==0.2.3; python_version >= "3.9" and python_version < "4.0" \
     --hash=sha256:5dea4e2daf60ce083a9e63d9c2a56778ce87fc952fef717e28c61330f2896c81 \
     --hash=sha256:ad67b36aab56ee5caddcc8fe770950fc71f78afff33601c9572fdad7ad2fde71
 parse==1.19.0; python_full_version >= "3.6.0" \
