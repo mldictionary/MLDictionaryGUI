@@ -48,10 +48,7 @@ class Handler:
             source = f'<a href="{self.language.URL.format(word)}">' + self.language.URL.format(word) + '</a>'
             self.current_source.set_markup(source)
             if result := self.language.get_meanings(word):
-                if str(self.language)=='Spanish':
-                    meanings = '\n\n'.join([f'{pos+1}º: {mean[5:]}' for pos, mean in enumerate(result)])
-                else:
-                    meanings = '\n\n'.join([f'{pos+1}º: {mean}' for pos, mean in enumerate(result)])
+                meanings = '\n\n'.join([f'{pos+1}º: {mean}' for pos, mean in enumerate(result)])
                 self.label.set_yalign(0)
                 self.label.set_xalign(0)
                 self.label.set_justify(Gtk.Justification.LEFT)
