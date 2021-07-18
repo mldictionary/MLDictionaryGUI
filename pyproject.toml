@@ -14,7 +14,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
-mldictionary = "^0.1.11"
+mldictionary = "^0.2.0"
 parsel = "^1.6.0"
 playsound = "^1.2.2"
 requests-html = "^0.10.0"

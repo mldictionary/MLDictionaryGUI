@@ -96,7 +96,7 @@ source = ["Cython (>=0.29.7)"]
 
 [[package]]
 name = "mldictionary"
-version = "0.1.11"
+version = "0.2.1"
 description = "word's dictionary for several languages"
 category = "main"
 optional = false
@@ -318,7 +318,7 @@ python-versions = ">=3.6.1"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "421cf6dde6869fd618d20dc6f5a801bd708fa0f83df39b86e98f53d0626cdb03"
+content-hash = "c5717cc2c9c65c22da6c2c598589e781b0dddc7c96f3c83d51b8eb78f39b1ee9"
 
 [metadata.files]
 appdirs = [
@@ -405,8 +405,8 @@ lxml = [
     {file = "lxml-4.6.3.tar.gz", hash = "sha256:39b78571b3b30645ac77b95f7c69d1bffc4cf8c3b157c435a34da72e78c82468"},
 ]
 mldictionary = [
-    {file = "mldictionary-0.1.11-py3-none-any.whl", hash = "sha256:5dea4e2daf60ce083a9e63d9c2a56778ce87fc952fef717e28c61330f2896c81"},
-    {file = "mldictionary-0.1.11.tar.gz", hash = "sha256:ad67b36aab56ee5caddcc8fe770950fc71f78afff33601c9572fdad7ad2fde71"},
+    {file = "mldictionary-0.2.1-py3-none-any.whl", hash = "sha256:469fae7de6c8b6e1ae7355dcd5da009e6e00934449d49987b9b448dafe0411a0"},
+    {file = "mldictionary-0.2.1.tar.gz", hash = "sha256:c66f3b41fa26b608c0e395cfd60989787827f3d6ae64d2c9a2e6c5bc1dac183b"},
 ]
 parse = [
     {file = "parse-1.19.0.tar.gz", hash = "sha256:9ff82852bcb65d139813e2a5197627a94966245c897796760a3a2a8eb66f020b"},
